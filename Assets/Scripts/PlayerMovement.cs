@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-           // animator.SetBool("IsJumpingStart", false);
+           animator.SetBool("IsJumpingStart", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded())
             {
                 rb.velocity = Vector2.up * jumpForce; // Modifier gravity scale
-                //animator.SetBool("IsJumpingStart",true);
+                animator.SetBool("IsJumpingStart",true);
             }
             else if (Input.GetKeyDown(KeyCode.Space) && doubleJump){
                 rb.velocity = Vector2.up * jumpForce;
