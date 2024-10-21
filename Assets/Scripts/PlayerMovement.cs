@@ -14,21 +14,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private LayerMask platformsLayerMask;
     private bool doubleJump;
 
-    private Animator animator;
+    public Animator animator;
 
+    public float distanceDelta;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //boxCollider2D = GetComponent<BoxCollider2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
+     
     void Update()
-    {        
+    {
+        
         if(Input.GetAxis("Horizontal") != 0)
         {
             if(Input.GetAxis("Horizontal") > 0) // We run to the right
@@ -48,22 +46,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsWalkingRight", false);
         }
 
-
         if (IsGrounded())
         {
             doubleJump = true;
+           
         }
-        else
-        {
-           animator.SetBool("IsJumpingStart", false);
-        }
-
+       
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (IsGrounded())
             {
-                rb.velocity = Vector2.up * jumpForce; // Modifier gravity scale
-                animator.SetBool("IsJumpingStart",true);
+                rb.velocity = Vector2.up * jumpForce; // Modifier gravity scale                
             }
             else if (Input.GetKeyDown(KeyCode.Space) && doubleJump){
                 rb.velocity = Vector2.up * jumpForce;
@@ -76,16 +69,10 @@ public class PlayerMovement : MonoBehaviour
     //https://www.youtube.com/watch?v=9pKXXNgCgq8
     private bool IsGrounded()
     {
-        //RaycastHit2D hit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, 0.1f, platformsLayerMask);
-        //RaycastHit2D hit = Physics2D.CircleCast(circleCollider2D.bounds.center, circleCollider2D.bounds.size, 0f, Vector2.down, 0.1f, platformsLayerMask);
-        RaycastHit2D hit = Physics2D.CircleCast(circleCollider2D.bounds.center, 1.28f, Vector2.down, 0.1f, platformsLayerMask);
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        float distance = circleCollider2D.bounds.extents.y + distanceDelta;
+        Debug.DrawRay(transform.position, Vector2.down * distance, Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, platformsLayerMask);
+        return hit.collider != null;
+        
     }
 }
