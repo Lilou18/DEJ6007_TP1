@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -18,10 +19,32 @@ public class PlayerMovement : MonoBehaviour
 
     public float distanceDelta;
 
+    // Dash variables
+    private TrailRenderer trailRenderer;
+    [SerializeField] private float dashVelocity;
+    [SerializeField] private float dashTime;
+    [SerializeField]private float dashCoolDown;
+    private Vector2 dashDirection;
+    private bool isDashing;
+    private bool canDash;
+    private bool waitCoolDown;
+
+
+    //private bool canDash;
+    //private bool isDashing;
+    //private float dashingPower = 24f;
+    //private float dashingTime = 0.2f;
+    //private float dashingCooldown = 1f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
+
+        trailRenderer = GetComponent<TrailRenderer>();
+        
+
+        canDash = true;
     }
      
     void Update()
@@ -49,7 +72,11 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             doubleJump = true;
-           
+        }
+        if(IsGrounded() && waitCoolDown)
+        {
+            canDash = true;
+            waitCoolDown = false;
         }
        
         if (Input.GetKeyDown(KeyCode.Space))
@@ -63,6 +90,26 @@ public class PlayerMovement : MonoBehaviour
                 doubleJump = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            isDashing = true;
+            canDash = false;
+            trailRenderer.emitting = true;
+            dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if(dashDirection == Vector2.zero)
+            {
+                dashDirection = new Vector2(transform.localScale.x, 0);
+            }
+            StartCoroutine(StopDashing());
+        }
+
+        if (isDashing)
+        {
+            rb.velocity = dashDirection.normalized * dashVelocity;
+            return;
+        }
     }
     // https://www.youtube.com/watch?v=ptvK4Fp5vRY
     //https://www.youtube.com/watch?v=DEGEEZmfTT0
@@ -75,4 +122,28 @@ public class PlayerMovement : MonoBehaviour
         return hit.collider != null;
         
     }
+
+    private IEnumerator StopDashing()
+    {
+        yield return new WaitForSeconds(dashTime);
+        trailRenderer.emitting = false;
+        isDashing = false;
+        yield return new WaitForSeconds(dashCoolDown);
+        waitCoolDown = true;
+    }
+
+    //private IEnumerator Dash()
+    //{
+    //    print("Hello!");
+    //    canDash = false;
+    //    isDashing = true;
+    //    float originalGravity = rb.gravityScale;
+    //    rb.gravityScale = 0f;
+    //    rb.velocity = new Vector2(Input.GetAxis("Horizontal") * dashingPower, 0f);
+    //    yield return new WaitForSeconds(dashingTime);
+    //    rb.gravityScale = originalGravity;
+    //    isDashing = false;
+    //    yield return new WaitForSeconds(dashingCooldown);
+    //    canDash = true;
+    //}
 }
