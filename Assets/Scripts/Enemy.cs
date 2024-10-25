@@ -39,13 +39,15 @@ public class Enemy : MonoBehaviour
     {
         if (playerIsVisible)
         {
-            print("couocu");
-           // this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
+           Vector3 direction = new Vector3(target.transform.position.x,0,0) - new Vector3 (transform.position.x,transform.position.y,transform.position.z);
+            //this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
+            this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
+            enemySpeed = 3;
         }
         else
         {
-            print("Not visible!");
-            //Patrol();
+            enemySpeed = 2;
+            Patrol();
         }
         //FindTarget();
         //ChasePlayer();

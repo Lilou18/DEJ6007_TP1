@@ -246,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 209712384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.67, y: 0, z: 0}
+  m_LocalPosition: {x: -10.76, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 3.1626, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -454,7 +454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6966489755665093646, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.38
+      value: 5.23
       objectReference: {fileID: 0}
     - target: {fileID: 6966489755665093646, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
       propertyPath: m_LocalPosition.y
@@ -510,7 +510,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.21
+      value: -11.48
       objectReference: {fileID: 0}
     - target: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
       propertyPath: m_LocalPosition.y
@@ -604,7 +604,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &1595653163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
@@ -801,7 +801,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.79
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
