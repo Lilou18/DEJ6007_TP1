@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float colliderDistance;
     Animator animator;
 
+    Rigidbody2D rbEnemy;
+    private bool isChasingPlayer;
 
     [SerializeField] Transform target;
     [SerializeField] Transform[] patrolPoints;
@@ -29,36 +31,63 @@ public class Enemy : MonoBehaviour
         nextPointPatrol = 0;
         initScale = transform.localScale;
         playerIsVisible = false;
+        rbEnemy = GetComponent<Rigidbody2D>();
     }
 
     
     void Update()
     {
-        Patrol();
+        if (playerIsVisible)
+        {
+            print("couocu");
+           // this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
+        }
+        else
+        {
+            print("Not visible!");
+            //Patrol();
+        }
         //FindTarget();
+        //ChasePlayer();
+    }
+
+    private void ChasePlayer()
+    {
+        if (playerIsVisible)
+        {
+            this.transform.Translate(target.transform.position);
+            //rbEnemy.velocity = new Vector2
+        }
     }
 
     private void FixedUpdate()
     {
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position - transform.position);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.forward);
-        if (hit.collider != null)
+        //RaycastHit2D ray = Physics2D.Raycast(transform.position, target.transform.position - transform.position, 4f);
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, 4f);
+        if (ray.collider != null)
         {
-            playerIsVisible = hit.collider.CompareTag("Player");
+            
+            playerIsVisible = ray.collider.CompareTag("Player");
             if (playerIsVisible)
             {
-                Debug.DrawRay(transform.position, Vector3.forward, Color.green);
+                
+                Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x, Color.green);
             }
             else
             {
-                Debug.DrawRay(transform.position, Vector3.forward, Color.red);
+               
+                Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x , Color.red);
             }
+        }
+        else
+        {
+            playerIsVisible = false;
         }
     }
 
     private bool IsPlayerInSight()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance, 
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
         return hit.collider != null;
@@ -67,7 +96,7 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance, 
+        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
     }
 

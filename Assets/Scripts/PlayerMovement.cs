@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
      
     void Update()
     {
-        
         if(Input.GetAxis("Horizontal") != 0)
         {
             if(Input.GetAxis("Horizontal") > 0) // We run to the right
