@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     Rigidbody2D rbEnemy;
     private bool isChasingPlayer;
+    [SerializeField] GameObject exclamation;
+    private bool detectPlayer;
 
     [SerializeField] Transform target;
     [SerializeField] Transform[] patrolPoints;
@@ -23,6 +25,8 @@ public class Enemy : MonoBehaviour
     
     private Vector3 initScale;
     private bool playerIsVisible;
+
+    bool showExclamationPoint;
 
     [SerializeField] EyeFollowPlayer[] eyes;
     void Start()
@@ -37,8 +41,16 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
+        if(Vector2.Distance(transform.position, target.transform.position) > 4f)
+        {
+            showExclamationPoint = true;
+        }
         if (playerIsVisible)
         {
+            if(Vector2.Distance(transform.position,target.transform.position) < 4f)
+            {
+                StartCoroutine(ShowExclamation());
+            }
            Vector3 direction = new Vector3(target.transform.position.x,0,0) - new Vector3 (transform.position.x,transform.position.y,transform.position.z);
             //this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
             this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
@@ -55,11 +67,7 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (playerIsVisible)
-        {
-            this.transform.Translate(target.transform.position);
-            //rbEnemy.velocity = new Vector2
-        }
+        
     }
 
     private void FixedUpdate()
@@ -72,12 +80,12 @@ public class Enemy : MonoBehaviour
             playerIsVisible = ray.collider.CompareTag("Player");
             if (playerIsVisible)
             {
+                //StartCoroutine(ShowExclamation());
                 
                 Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x, Color.green);
             }
             else
             {
-               
                 Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x , Color.red);
             }
         }
@@ -144,6 +152,20 @@ public class Enemy : MonoBehaviour
                 eye.enabled = false;
             }
         }
+    }
+
+    // Used to show the player the enemy saw him
+    IEnumerator ShowExclamation()
+    {
+        if (showExclamationPoint && playerIsVisible)
+        {
+            showExclamationPoint = false;
+            detectPlayer = false;
+            exclamation.SetActive(true);
+            yield return new WaitForSeconds(1);
+            exclamation.SetActive(false);
+        }
+        
     }
 
 }
