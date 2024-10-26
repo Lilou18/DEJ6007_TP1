@@ -6,26 +6,18 @@ using UnityEngine.SceneManagement;
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] GameObject deadPanel;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
-        
+        playerHealth = GetComponent<PlayerHealth>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Fall")
         {
-            deadPanel.SetActive(true);
+            playerHealth.TakeDamage(playerHealth.health);
             Time.timeScale = 0;
         }
     }
-
-    public void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1f;
-    }
-
-
-
 }

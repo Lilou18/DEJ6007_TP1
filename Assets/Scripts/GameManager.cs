@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
         PlayerHealth.OnPlayerDied += playerDie;
     }
 
+    private void OnDisable()
+    {
+        PlayerHealth.OnPlayerDied -= playerDie;
+    }
+
     public void playerDie()
     {
         deadPanel.SetActive(true);
-
     }
     public void RestartLevel()
     {

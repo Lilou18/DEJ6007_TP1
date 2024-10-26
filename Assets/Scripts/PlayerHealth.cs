@@ -7,16 +7,15 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] public int health { get; private set;}
     [SerializeField] GameObject[] heart;
-
     public static event Action OnPlayerDied;
 
     private void Start()
     {
         health = 3;
     }
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        health--;
+        health -= damage;
         SetHearts();
         // The player is dead
         if(health <= 0)
@@ -44,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TakeDamage();
+            TakeDamage(1);
         }
     }
 }

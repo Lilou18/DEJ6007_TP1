@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     PlayerHealth playerHealth;
     private bool canChase;
+    private int enemyDamage;
 
     Rigidbody2D rbEnemy;
     private bool isChasingPlayer;
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
     private bool isInAttackRange;
     void Start()
     {
+        enemyDamage = 1;
         animator = GetComponentInChildren<Animator>();
         nextPointPatrol = 0;
         initScale = transform.localScale;
@@ -99,7 +101,7 @@ public class Enemy : MonoBehaviour
     private void TakeDamage()
     {
        // animator.SetBool("Attack", false);
-        playerHealth.TakeDamage();
+        playerHealth.TakeDamage(1);
 
     }
 
