@@ -26,4 +26,6 @@ public class PlayerCollision : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
+
 }

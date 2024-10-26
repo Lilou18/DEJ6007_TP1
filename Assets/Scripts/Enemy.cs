@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,6 +31,9 @@ public class Enemy : MonoBehaviour
     bool showExclamationPoint;
 
     [SerializeField] EyeFollowPlayer[] eyes;
+
+    public float rangeAttack;
+    private bool isInAttackRange;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -39,10 +43,11 @@ public class Enemy : MonoBehaviour
         rbEnemy = GetComponent<Rigidbody2D>();
     }
 
-    
+    bool test;
     void Update()
     {
-        if(Vector2.Distance(transform.position, target.transform.position) > 4f)
+
+        if (Vector2.Distance(transform.position, target.transform.position) > 4f)
         {
             showExclamationPoint = true;
         }
@@ -52,18 +57,21 @@ public class Enemy : MonoBehaviour
             {
                 StartCoroutine(ShowExclamation());
             }
+            
+            //TODO STOP THE CHASE WHEN ATTACKING!!
             ChasePlayer();
+            
 
-            if (IsPlayerInSight()) // Player in Range
-            {
-                //Attack
-                animator.SetBool("Attack", true);
-                DamagePlayer();
-            }
-            else
-            {
-                animator.SetBool("Attack", false);
-            }
+            //if (IsPlayerInSight()) // Player in Range
+            //{
+            //    //Attack
+            //    animator.SetBool("Attack", true);
+            //    DamagePlayer();
+            //}
+            //else
+            //{
+            //    animator.SetBool("Attack", false);
+            //}
 
 
         }
@@ -72,18 +80,48 @@ public class Enemy : MonoBehaviour
             enemySpeed = 2;
             //Patrol();
         }
-        //FindTarget();
-        //ChasePlayer();
     }
 
-    private void DamagePlayer()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsPlayerInSight())
+        if(collision.gameObject.tag == "Player")
         {
-            // Damage player
-            playerInfo.TakeDamage();
+            print("hello?");
+
+            playerInfo = collision.transform.GetComponent<PlayerInfo>();
+            animator.SetBool("Attack", true);
+            TakeDamage();
+            StartCoroutine(AnimationEnd());
+            isInAttackRange = true;
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+    }
+
+    IEnumerator AnimationEnd()
+    {
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("Attack", false);
+    }
+
+    private void TakeDamage()
+    {
+       // animator.SetBool("Attack", false);
+        playerInfo.TakeDamage();
+
+    }
+
+    //private void DamagePlayer()
+    //{
+    //    if (IsPlayerInSight())
+    //    {
+    //        // Damage player
+    //        playerInfo.TakeDamage();
+    //    }
+    //}
 
     private void ChasePlayer()
     {
@@ -118,26 +156,26 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private bool IsPlayerInSight()
-    {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
-            new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
-            0, Vector2.left, 0, playerLayer);
+    //private bool IsPlayerInSight()
+    //{
+    //    RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
+    //        new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+    //        0, Vector2.left, 0, playerLayer);
 
-        if(hit.collider != null)
-        {
-            playerInfo = hit.transform.GetComponent<PlayerInfo>();
-        }
+    //    if(hit.collider != null)
+    //    {
+    //        playerInfo = hit.transform.GetComponent<PlayerInfo>();
+    //    }
 
-        return hit.collider != null;
-    }
+    //    return hit.collider != null;
+    //}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
-            new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
+    //        new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
+    //}
 
     // Make the enemy patrol between points
     private void Patrol()
