@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float colliderDistance;
     Animator animator;
 
-    PlayerInfo playerInfo;
+    PlayerHealth playerHealth;
+    private bool canChase;
 
     Rigidbody2D rbEnemy;
     private bool isChasingPlayer;
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour
         initScale = transform.localScale;
         playerIsVisible = false;
         rbEnemy = GetComponent<Rigidbody2D>();
+        canChase = true;
     }
 
     bool test;
@@ -57,23 +59,11 @@ public class Enemy : MonoBehaviour
             {
                 StartCoroutine(ShowExclamation());
             }
+            if (canChase)
+            {
+                ChasePlayer();
+            }
             
-            //TODO STOP THE CHASE WHEN ATTACKING!!
-            ChasePlayer();
-            
-
-            //if (IsPlayerInSight()) // Player in Range
-            //{
-            //    //Attack
-            //    animator.SetBool("Attack", true);
-            //    DamagePlayer();
-            //}
-            //else
-            //{
-            //    animator.SetBool("Attack", false);
-            //}
-
-
         }
         else
         {
@@ -86,9 +76,8 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            print("hello?");
-
-            playerInfo = collision.transform.GetComponent<PlayerInfo>();
+            canChase = false;
+            playerHealth = collision.transform.GetComponent<PlayerHealth>();
             animator.SetBool("Attack", true);
             TakeDamage();
             StartCoroutine(AnimationEnd());
@@ -110,7 +99,7 @@ public class Enemy : MonoBehaviour
     private void TakeDamage()
     {
        // animator.SetBool("Attack", false);
-        playerInfo.TakeDamage();
+        playerHealth.TakeDamage();
 
     }
 
