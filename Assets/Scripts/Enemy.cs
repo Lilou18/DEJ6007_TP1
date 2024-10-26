@@ -11,10 +11,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float colliderDistance;
     Animator animator;
 
+    PlayerInfo playerInfo;
+
     Rigidbody2D rbEnemy;
     private bool isChasingPlayer;
     [SerializeField] GameObject exclamation;
-    private bool detectPlayer;
 
     [SerializeField] Transform target;
     [SerializeField] Transform[] patrolPoints;
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] EyeFollowPlayer[] eyes;
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         nextPointPatrol = 0;
         initScale = transform.localScale;
         playerIsVisible = false;
@@ -51,23 +52,45 @@ public class Enemy : MonoBehaviour
             {
                 StartCoroutine(ShowExclamation());
             }
-           Vector3 direction = new Vector3(target.transform.position.x,0,0) - new Vector3 (transform.position.x,transform.position.y,transform.position.z);
-            //this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
-            this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
-            enemySpeed = 3;
+            ChasePlayer();
+
+            if (IsPlayerInSight()) // Player in Range
+            {
+                //Attack
+                animator.SetBool("Attack", true);
+                DamagePlayer();
+            }
+            else
+            {
+                animator.SetBool("Attack", false);
+            }
+
+
         }
         else
         {
             enemySpeed = 2;
-            Patrol();
+            //Patrol();
         }
         //FindTarget();
         //ChasePlayer();
     }
 
+    private void DamagePlayer()
+    {
+        if (IsPlayerInSight())
+        {
+            // Damage player
+            playerInfo.TakeDamage();
+        }
+    }
+
     private void ChasePlayer()
     {
-        
+        Vector3 direction = new Vector3(target.transform.position.x, 0, 0) - new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        //this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
+        this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
+        enemySpeed = 3;
     }
 
     private void FixedUpdate()
@@ -100,6 +123,12 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
+
+        if(hit.collider != null)
+        {
+            playerInfo = hit.transform.GetComponent<PlayerInfo>();
+        }
+
         return hit.collider != null;
     }
 
@@ -160,7 +189,6 @@ public class Enemy : MonoBehaviour
         if (showExclamationPoint && playerIsVisible)
         {
             showExclamationPoint = false;
-            detectPlayer = false;
             exclamation.SetActive(true);
             yield return new WaitForSeconds(1);
             exclamation.SetActive(false);
