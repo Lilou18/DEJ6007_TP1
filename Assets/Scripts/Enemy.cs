@@ -28,15 +28,21 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] EyeFollowPlayer[] eyes;
 
+    EnemyPatrol patrol;
+    EyeControl[] eyeControl;
+
     void Start()
     {
         canAttack = true;
-        enemyDamage = 1;
-        animator = GetComponentInChildren<Animator>();
+        enemyDamage = 1;        
         nextPointPatrol = 0;
         initScale = transform.localScale;
         playerIsVisible = false;
         canChase = true;
+
+        animator = GetComponentInChildren<Animator>();
+        patrol = GetComponent<EnemyPatrol>();
+        eyeControl = GetComponentsInChildren<EyeControl>();
     }
     void Update()
     {        
@@ -49,15 +55,15 @@ public class Enemy : MonoBehaviour
             if (canChase)
             {
                 ChasePlayer();
-            }
-
+            }            
         }
         else
         {
-            exclamation?.SetActive(false);
+            exclamation.SetActive(false);
             enemySpeed = 2;
-            Patrol();
+            patrol.Patrol();
         }
+        EyesFollowPlayer(playerIsVisible);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -106,7 +112,6 @@ public class Enemy : MonoBehaviour
 
     private void TakeDamage()
     {
-       // animator.SetBool("Attack", false);
         playerHealth.TakeDamage(enemyDamage);
 
     }
@@ -126,10 +131,7 @@ public class Enemy : MonoBehaviour
             
             playerIsVisible = ray.collider.CompareTag("Player");
             if (playerIsVisible)
-            {
-                //StartCoroutine(ShowExclamation());
-                // THIs IS A PROBLEM MULTIPLE COROUTINE AT THE SAME TIME!!
-                
+            {    
                 Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x, Color.green);
             }
             else
@@ -142,48 +144,11 @@ public class Enemy : MonoBehaviour
             playerIsVisible = false;
         }
     }
-
-    // Make the enemy patrol between points
-    private void Patrol()
+    private void EyesFollowPlayer(bool isVisible)
     {
-        if (Vector2.Distance(transform.position, patrolPoints[nextPointPatrol].position) <= 0.2f)
+        foreach (EyeControl eye in eyeControl)
         {
-            nextPointPatrol++;
-            if (nextPointPatrol >= patrolPoints.Length)
-            {
-                nextPointPatrol = 0;
-            }
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[nextPointPatrol].position, enemySpeed * Time.deltaTime);
-
-            // Make sure the sprite is facing the good direction
-            if (transform.position.x < patrolPoints[nextPointPatrol].position.x)
-            {
-                transform.localScale = new Vector3(initScale.x, initScale.y, initScale.z);
-            }
-            else
-            {
-                transform.localScale = new Vector3(initScale.x * -1, initScale.y, initScale.z);
-            }
-        }
-    }
-    private void FindTarget()
-    {
-        if (Vector2.Distance(transform.position, target.position) <= detectDistance)
-        {
-            foreach (EyeFollowPlayer eye in eyes)
-            {
-                eye.enabled = true;
-            }
-        }
-        else
-        {
-            foreach (EyeFollowPlayer eye in eyes)
-            {
-                eye.enabled = false;
-            }
+            eye.enabled = isVisible;
         }
     }
 
