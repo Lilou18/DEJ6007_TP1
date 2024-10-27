@@ -19,5 +19,9 @@ public class PlayerCollision : MonoBehaviour
             playerHealth.TakeDamage(playerHealth.health);
             Time.timeScale = 0;
         }
+        else if(collision.gameObject.tag == "FireBall")
+        {
+            playerHealth.TakeDamage(1);
+        }
     }
 }

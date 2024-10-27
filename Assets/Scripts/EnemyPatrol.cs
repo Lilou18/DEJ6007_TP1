@@ -17,7 +17,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-        Patrol();
+        //Patrol();
     }
 
     public void Patrol()
