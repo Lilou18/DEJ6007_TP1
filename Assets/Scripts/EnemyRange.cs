@@ -38,7 +38,6 @@ public class EnemyRange : MonoBehaviour
         {
             ShootFireBall();
         }
-        print(isPlayerVisible);
         if (isPlayerVisible)
         {
             EyesFollowPlayer(true);

@@ -16,7 +16,6 @@ public class EnemyPatrol : MonoBehaviour
     }
     public void Patrol()
     {
-        print("Im here!");
         if (Vector2.Distance(transform.position, patrolPoints[nextPointPatrol].position) <= 0.2f)
         {
             nextPointPatrol++;

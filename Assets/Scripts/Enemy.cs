@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] EyeFollowPlayer[] eyes;
 
-    public float rangeAttack;
     void Start()
     {
         canAttack = true;
@@ -42,8 +41,6 @@ public class Enemy : MonoBehaviour
         playerIsVisible = false;
         canChase = true;
     }
-
-    bool test;
     void Update()
     {
 
@@ -53,15 +50,15 @@ public class Enemy : MonoBehaviour
         }
         if (playerIsVisible)
         {
-            if(Vector2.Distance(transform.position,target.transform.position) < 4f)
+            if (Vector2.Distance(transform.position, target.transform.position) < 4f)
             {
-               //StartCoroutine(ShowExclamation());
+                //StartCoroutine(ShowExclamation());
             }
             if (canChase)
             {
                 ChasePlayer();
             }
-            
+
         }
         else
         {

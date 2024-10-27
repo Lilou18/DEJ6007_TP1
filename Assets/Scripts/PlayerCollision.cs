@@ -24,5 +24,16 @@ public class PlayerCollision : MonoBehaviour
             playerHealth.TakeDamage(1);
             Destroy(collision.gameObject);
         }
+        
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("OnCollisionEnter2D");
+        if (collision.gameObject.tag == "Enemy")
+        {
+            playerHealth.TakeDamage(1);
+        }
+    }
+
 }
