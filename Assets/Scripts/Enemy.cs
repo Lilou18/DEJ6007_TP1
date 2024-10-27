@@ -14,8 +14,7 @@ public class Enemy : MonoBehaviour
     private int enemyDamage;
     bool canAttack;
 
-    [SerializeField] GameObject exclamation;
-    
+    [SerializeField] GameObject exclamation;    
 
     [SerializeField] Transform target;
     [SerializeField] Transform[] patrolPoints;
@@ -26,8 +25,6 @@ public class Enemy : MonoBehaviour
     
     private Vector3 initScale;
     private bool playerIsVisible;
-
-    bool showExclamationPoint;
 
     [SerializeField] EyeFollowPlayer[] eyes;
 
@@ -42,17 +39,12 @@ public class Enemy : MonoBehaviour
         canChase = true;
     }
     void Update()
-    {
-
-        if (Vector2.Distance(transform.position, target.transform.position) > 4f)
-        {
-            showExclamationPoint = true;
-        }
+    {        
         if (playerIsVisible)
         {
             if (Vector2.Distance(transform.position, target.transform.position) < 4f)
             {
-                //StartCoroutine(ShowExclamation());
+                exclamation.SetActive(true);
             }
             if (canChase)
             {
@@ -62,6 +54,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            exclamation?.SetActive(false);
             enemySpeed = 2;
             Patrol();
         }
@@ -192,19 +185,6 @@ public class Enemy : MonoBehaviour
                 eye.enabled = false;
             }
         }
-    }
-
-    // Used to show the player the enemy saw him
-    IEnumerator ShowExclamation()
-    {
-        if (showExclamationPoint && playerIsVisible)
-        {
-            showExclamationPoint = false;
-            exclamation.SetActive(true);
-            yield return new WaitForSeconds(1);
-            exclamation.SetActive(false);
-        }
-        
     }
 
 }
