@@ -18,7 +18,10 @@ public class EnemyRange : MonoBehaviour
     [SerializeField] Transform pupil;
     [SerializeField] private float fireBallSpeed;
     [SerializeField] private float recoilDistance;
-    private float attackCooldown;
+
+
+    [SerializeField] private float attackCooldown;
+    private float lastShootTime;
 
 
     private Animator animator;
@@ -30,17 +33,17 @@ public class EnemyRange : MonoBehaviour
         enemyPatrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
         detectRange = 10f;
+
+        lastShootTime = 0f;
+        attackCooldown = 1f;
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ShootFireBall();
-        }
+    {        
         if (isPlayerVisible)
-        {
+        {          
             EyesFollowPlayer(true);
+            ShootFireBall();
         }
         else
         {
@@ -56,21 +59,27 @@ public class EnemyRange : MonoBehaviour
 
     private void ShootFireBall()
     {
-        Vector3 dirFireBall = (player.position - transform.position).normalized;
-        
+        if (Time.time >= lastShootTime + attackCooldown)
+        {
+            lastShootTime = Time.time;
 
-        GameObject fireBall = Instantiate(fireBulletPrefab, pupil.transform.position, Quaternion.identity);
+            Vector3 dirFireBall = (player.position - transform.position).normalized;
 
-        // Apply rotation to the sprite so it's facing the right direction
-        float angle= Mathf.Atan2(dirFireBall.y, dirFireBall.x) * Mathf.Rad2Deg;
-        fireBall.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        // Move the bullet in the direction of the player
-        fireBall.GetComponent<Rigidbody2D>().velocity = new Vector2(dirFireBall.x, dirFireBall.y) * fireBallSpeed;
+            GameObject fireBall = Instantiate(fireBulletPrefab, pupil.transform.position, Quaternion.identity);
 
-        Destroy(fireBall, 2f); // If it doesn't hit anything destroy it after 2 sec
+            // Apply rotation to the sprite so it's facing the right direction
+            float angle = Mathf.Atan2(dirFireBall.y, dirFireBall.x) * Mathf.Rad2Deg;
+            fireBall.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        StartCoroutine(EyeRecoil(-dirFireBall));
+            // Move the bullet in the direction of the player
+            fireBall.GetComponent<Rigidbody2D>().velocity = new Vector2(dirFireBall.x, dirFireBall.y) * fireBallSpeed;
+
+            Destroy(fireBall, 2f); // If it doesn't hit anything destroy it after 2 sec
+
+            StartCoroutine(EyeRecoil(-dirFireBall));
+        }
+       
     }
 
     private IEnumerator EyeRecoil(Vector3 recoilDirection)
