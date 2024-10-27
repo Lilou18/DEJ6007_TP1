@@ -15,10 +15,10 @@ public class EnemyRange : MonoBehaviour
 
 
     [SerializeField] GameObject fireBulletPrefab;
-    [SerializeField] Transform firePoint; // Position where the fireball is instantiated
+    [SerializeField] Transform pupil;
     [SerializeField] private float fireBallSpeed;
     private float attackCooldown;
-    private float offsetFireBall; // We can't instantiate the fireball at the enemy position because of the collider so we add an offset.
+
 
     private Animator animator;
 
@@ -54,13 +54,17 @@ public class EnemyRange : MonoBehaviour
         IsPlayerVisible();
     }
 
-    // LES BOULES DE FEU SONT ENTRIGGER DONC TRAVRESES LES PLATEFORMES ET AUTRES!!!!!
     private void ShootFireBall()
     {
         Vector3 dirFireBall = (player.position - transform.position).normalized;
-        Vector3 spawnPosition = transform.position + dirFireBall * offsetFireBall;
+        
 
-        GameObject fireBall = Instantiate(fireBulletPrefab, spawnPosition, Quaternion.identity);
+        GameObject fireBall = Instantiate(fireBulletPrefab, pupil.transform.position, Quaternion.identity);
+
+        // Apply rotation to the sprite so she's facing the right direction
+        float angle= Mathf.Atan2(dirFireBall.y, dirFireBall.x) * Mathf.Rad2Deg;
+        fireBall.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
         fireBall.GetComponent<Rigidbody2D>().velocity = new Vector2(dirFireBall.x, dirFireBall.y) * fireBallSpeed;
     }
 
