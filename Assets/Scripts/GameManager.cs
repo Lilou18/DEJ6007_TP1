@@ -11,20 +11,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         PlayerHealth.OnPlayerDied += playerDie;
-    }
-
-    private void OnDisable()
-    {
-        PlayerHealth.OnPlayerDied -= playerDie;
-    }
+    }    
 
     public void playerDie()
     {
         deadPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.OnPlayerDied -= playerDie;
     }
 }

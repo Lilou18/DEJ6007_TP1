@@ -6,19 +6,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D boxCollider;
-    [SerializeField] LayerMask playerLayer;
     [SerializeField] private float detectDistance;
-    [SerializeField] private float colliderDistance;
     Animator animator;
 
     PlayerHealth playerHealth;
     private bool canChase;
     private int enemyDamage;
+    bool canAttack;
 
-    Rigidbody2D rbEnemy;
-    private bool isChasingPlayer;
     [SerializeField] GameObject exclamation;
+    
 
     [SerializeField] Transform target;
     [SerializeField] Transform[] patrolPoints;
@@ -35,15 +32,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] EyeFollowPlayer[] eyes;
 
     public float rangeAttack;
-    private bool isInAttackRange;
     void Start()
     {
+        canAttack = true;
         enemyDamage = 1;
         animator = GetComponentInChildren<Animator>();
         nextPointPatrol = 0;
         initScale = transform.localScale;
         playerIsVisible = false;
-        rbEnemy = GetComponent<Rigidbody2D>();
         canChase = true;
     }
 
@@ -59,7 +55,7 @@ public class Enemy : MonoBehaviour
         {
             if(Vector2.Distance(transform.position,target.transform.position) < 4f)
             {
-                StartCoroutine(ShowExclamation());
+               //StartCoroutine(ShowExclamation());
             }
             if (canChase)
             {
@@ -70,54 +66,63 @@ public class Enemy : MonoBehaviour
         else
         {
             enemySpeed = 2;
-            //Patrol();
+            Patrol();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" && canAttack)
         {
+            print("Enter");
+            canAttack = false;
             canChase = false;
             playerHealth = collision.transform.GetComponent<PlayerHealth>();
             animator.SetBool("Attack", true);
-            TakeDamage();
-            StartCoroutine(AnimationEnd());
-            isInAttackRange = true;
+            StartCoroutine(AnimationEnd(1f));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            print("EXIT");
+            canChase = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
-    }
+        if (collision.gameObject.tag == "Player" && canAttack)
+        {
+            print("STAY");
+            canAttack = false;
+            canChase = false;
+            playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            animator.SetBool("Attack", true);
+            StartCoroutine(AnimationEnd(1f));
+        }
 
-    IEnumerator AnimationEnd()
+    }
+    IEnumerator AnimationEnd(float animationTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(animationTime);
+        TakeDamage();
         animator.SetBool("Attack", false);
+        canAttack = true;
+        print("canAttack");
     }
 
     private void TakeDamage()
     {
        // animator.SetBool("Attack", false);
-        playerHealth.TakeDamage(1);
+        playerHealth.TakeDamage(enemyDamage);
 
     }
-
-    //private void DamagePlayer()
-    //{
-    //    if (IsPlayerInSight())
-    //    {
-    //        // Damage player
-    //        playerInfo.TakeDamage();
-    //    }
-    //}
-
     private void ChasePlayer()
     {
         Vector3 direction = new Vector3(target.transform.position.x, 0, 0) - new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        //this.transform.Translate(new Vector3(target.position.x,transform.position.y,transform.position.z));
         this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
         enemySpeed = 3;
     }
@@ -133,6 +138,7 @@ public class Enemy : MonoBehaviour
             if (playerIsVisible)
             {
                 //StartCoroutine(ShowExclamation());
+                // THIs IS A PROBLEM MULTIPLE COROUTINE AT THE SAME TIME!!
                 
                 Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x, Color.green);
             }
@@ -146,27 +152,6 @@ public class Enemy : MonoBehaviour
             playerIsVisible = false;
         }
     }
-
-    //private bool IsPlayerInSight()
-    //{
-    //    RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
-    //        new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
-    //        0, Vector2.left, 0, playerLayer);
-
-    //    if(hit.collider != null)
-    //    {
-    //        playerInfo = hit.transform.GetComponent<PlayerInfo>();
-    //    }
-
-    //    return hit.collider != null;
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * detectDistance * transform.localScale.x * colliderDistance,
-    //        new Vector3(boxCollider.bounds.size.x * detectDistance, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
-    //}
 
     // Make the enemy patrol between points
     private void Patrol()
