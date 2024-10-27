@@ -17,16 +17,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject exclamation;    
 
     [SerializeField] Transform target;
-    [SerializeField] Transform[] patrolPoints;
     [SerializeField] float enemySpeed;
-    private int nextPointPatrol;
     
 
     
     private Vector3 initScale;
     private bool playerIsVisible;
-
-    [SerializeField] EyeFollowPlayer[] eyes;
 
     EnemyPatrol patrol;
     EyeControl[] eyeControl;
@@ -34,8 +30,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         canAttack = true;
-        enemyDamage = 1;        
-        nextPointPatrol = 0;
+        enemyDamage = 1;      
         initScale = transform.localScale;
         playerIsVisible = false;
         canChase = true;

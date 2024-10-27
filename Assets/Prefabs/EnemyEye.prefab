@@ -376,6 +376,7 @@ MonoBehaviour:
   pupil: {fileID: 1244870880763822138}
   fireBallSpeed: 7
   recoilDistance: 0.2
+  attackCooldown: 0
 --- !u!1 &7531099778951994488
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +387,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8238318926511666236}
   - component: {fileID: 4599814938956943310}
-  - component: {fileID: 4363475896865883788}
   - component: {fileID: 4867448662424779219}
   m_Layer: 0
   m_Name: Eye
@@ -463,19 +463,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4363475896865883788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7531099778951994488}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1b3be4a160303439c000db0b9fb69c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
 --- !u!114 &4867448662424779219
 MonoBehaviour:
   m_ObjectHideFlags: 0
