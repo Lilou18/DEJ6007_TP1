@@ -17,6 +17,7 @@ public class EnemyRange : MonoBehaviour
     [SerializeField] GameObject fireBulletPrefab;
     [SerializeField] Transform pupil;
     [SerializeField] private float fireBallSpeed;
+    [SerializeField] private float recoilDistance;
     private float attackCooldown;
 
 
@@ -37,7 +38,7 @@ public class EnemyRange : MonoBehaviour
         {
             ShootFireBall();
         }
-        
+        print(isPlayerVisible);
         if (isPlayerVisible)
         {
             EyesFollowPlayer(true);
@@ -61,11 +62,27 @@ public class EnemyRange : MonoBehaviour
 
         GameObject fireBall = Instantiate(fireBulletPrefab, pupil.transform.position, Quaternion.identity);
 
-        // Apply rotation to the sprite so she's facing the right direction
+        // Apply rotation to the sprite so it's facing the right direction
         float angle= Mathf.Atan2(dirFireBall.y, dirFireBall.x) * Mathf.Rad2Deg;
         fireBall.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
+        // Move the bullet in the direction of the player
         fireBall.GetComponent<Rigidbody2D>().velocity = new Vector2(dirFireBall.x, dirFireBall.y) * fireBallSpeed;
+
+        Destroy(fireBall, 2f); // If it doesn't hit anything destroy it after 2 sec
+
+        StartCoroutine(EyeRecoil(-dirFireBall));
+    }
+
+    private IEnumerator EyeRecoil(Vector3 recoilDirection)
+    { 
+        Vector3 initPlayerPosition = transform.localPosition;
+
+        Vector3 recoilPosition = initPlayerPosition + recoilDirection * recoilDistance;
+        transform.localPosition = recoilPosition;
+
+        yield return new WaitForSeconds(0.2f);
+        transform.localPosition = initPlayerPosition;
     }
 
     private void IsPlayerVisible()

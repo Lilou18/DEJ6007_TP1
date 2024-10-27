@@ -22,6 +22,7 @@ public class PlayerCollision : MonoBehaviour
         else if(collision.gameObject.tag == "FireBall")
         {
             playerHealth.TakeDamage(1);
+            Destroy(collision.gameObject);
         }
     }
 }
