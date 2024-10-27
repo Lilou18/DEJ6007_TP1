@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canDash;
     private bool waitCoolDown;
 
+    [SerializeField] GameObject friendMarker;
+    bool markerRight = true;
 
     //private bool canDash;
     //private bool isDashing;
@@ -49,15 +51,25 @@ public class PlayerMovement : MonoBehaviour
      
     void Update()
     {
+        
         if(Input.GetAxis("Horizontal") != 0)
         {
-            if(Input.GetAxis("Horizontal") > 0) // We run to the right
+          
+            if (Input.GetAxis("Horizontal") > 0) // We run to the right
             {
-                animator.SetBool("IsWalkingRight", true);
+                animator.SetBool("IsWalkingRight", true);                
+                if (markerRight)
+                {
+                    FlipMarkerFriend();
+                }
             }
             else if(Input.GetAxis("Horizontal") < 0) // We run to the left
             {
                 animator.SetBool("IsWalkingLeft", true);
+                if (!markerRight)
+                {                    
+                    FlipMarkerFriend();
+                }
             }
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
@@ -110,6 +122,14 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
     }
+    private void FlipMarkerFriend()
+    {
+        markerRight = !markerRight;
+        Vector3 friendMarkerNewPosition = friendMarker.transform.localPosition;
+        friendMarkerNewPosition.x = -friendMarkerNewPosition.x;
+        friendMarker.transform.localPosition = friendMarkerNewPosition;
+    }
+
     // https://www.youtube.com/watch?v=ptvK4Fp5vRY
     //https://www.youtube.com/watch?v=DEGEEZmfTT0
     //https://www.youtube.com/watch?v=9pKXXNgCgq8

@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+
+public class Friend : MonoBehaviour
+{
+    [SerializeField] Transform followed;
+    [SerializeField] float speed;
+    [SerializeField] GameObject friendMarker;
+    private bool markerRight; // Is the marker is on the right side of the friend
+
+    private void Start()
+    {
+        markerRight = true;
+    }
+    private void Update()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        if(horizontalInput > 0 && markerRight) // The friend is mooving to the right and the marker is on the right side
+        {
+            FlipMarkerFriend();
+        }
+        else if(horizontalInput < 0 && !markerRight) //// The friend is mooving to the left and the marker is on the left side
+        {
+            FlipMarkerFriend();
+        }
+
+        Vector3 direction = followed.position - transform.position;
+        this.transform.Translate(direction.normalized * Time.deltaTime * speed);
+    }
+
+    // We change the marker to be on the other side of the friend, to follow the player movement
+    private void FlipMarkerFriend()
+    {
+        markerRight = !markerRight;
+        Vector3 friendMarkerNewPosition = friendMarker.transform.localPosition;
+        friendMarkerNewPosition.x = -friendMarkerNewPosition.x;
+        friendMarker.transform.localPosition = friendMarkerNewPosition;
+    }
+
+}
