@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Friend : MonoBehaviour
+public class Friend : MonoBehaviour, ICollectable
 {
-    [SerializeField] Transform followed;
+    private Transform followed;
+
+    [SerializeField] public Transform Followed { get{return followed;} set{ if (followed != null) { followed = value; }} }
     [SerializeField] float speed;
     [SerializeField] GameObject friendMarker;
     private bool markerRight; // Is the marker is on the right side of the friend
@@ -16,19 +18,23 @@ public class Friend : MonoBehaviour
     }
     private void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        if(horizontalInput > 0 && markerRight) // The friend is mooving to the right and the marker is on the right side
+        if (followed != null)
         {
-            FlipMarkerFriend();
-        }
-        else if(horizontalInput < 0 && !markerRight) //// The friend is mooving to the left and the marker is on the left side
-        {
-            FlipMarkerFriend();
-        }
+            float horizontalInput = Input.GetAxis("Horizontal");
 
-        Vector3 direction = followed.position - transform.position;
-        this.transform.Translate(direction.normalized * Time.deltaTime * speed);
+            if (horizontalInput > 0 && markerRight) // The friend is mooving to the right and the marker is on the right side
+            {
+                FlipMarkerFriend();
+            }
+            else if (horizontalInput < 0 && !markerRight) //// The friend is mooving to the left and the marker is on the left side
+            {
+                FlipMarkerFriend();
+            }
+
+            Vector3 direction = followed.position - transform.position;
+            this.transform.Translate(direction.normalized * Time.deltaTime * speed);
+        }
+        
     }
 
     // We change the marker to be on the other side of the friend, to follow the player movement
@@ -38,6 +44,11 @@ public class Friend : MonoBehaviour
         Vector3 friendMarkerNewPosition = friendMarker.transform.localPosition;
         friendMarkerNewPosition.x = -friendMarkerNewPosition.x;
         friendMarker.transform.localPosition = friendMarkerNewPosition;
+    }
+
+    public void Collect()
+    {
+
     }
 
 }

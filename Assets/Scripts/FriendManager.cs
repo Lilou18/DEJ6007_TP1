@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class FriendManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private List<Friend> friends;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        friends = new List<Friend>();
+        //friends.Add()
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Friend")
+        {
+            Friend newFriend = collision.gameObject.GetComponent<Friend>();
+            // On ne veut plus que le joueur entre en collision avec celui-ci
+            newFriend.gameObject.GetComponent<CircleCollider2D>().enabled = false; 
+            if(friends.Count == 0)
+            {
+                newFriend.Followed = this.transform;
+            }
+            else
+            {
+                //newFriend.Followed = friends
+            }
+            friends.Add(newFriend);
+        }
     }
 }

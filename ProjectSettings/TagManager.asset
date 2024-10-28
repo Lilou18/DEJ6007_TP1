@@ -8,6 +8,9 @@ TagManager:
   - FireBall
   - WeakPoint
   - Enemy
+  - platform
+  - enemys
+  - Friend
   layers:
   - Default
   - TransparentFX
