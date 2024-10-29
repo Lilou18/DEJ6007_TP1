@@ -38,12 +38,14 @@ public class PlayerMovement : MonoBehaviour
     //private float dashingTime = 0.2f;
     //private float dashingCooldown = 1f;
 
+    private void Awake()
+    {
+        trailRenderer = GetComponent<TrailRenderer>();
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
-
-        trailRenderer = GetComponent<TrailRenderer>();
         
 
         canDash = true;

@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerHealth.OnPlayerDied += playerDie;
+        PlayerHealth.OnPlayerDied += PlayerDie;
     }    
 
-    public void playerDie()
+    public void PlayerDie()
     {
         deadPanel.SetActive(true);
         Time.timeScale = 0f;
@@ -25,6 +25,6 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerDied -= playerDie;
+        PlayerHealth.OnPlayerDied -= PlayerDie;
     }
 }

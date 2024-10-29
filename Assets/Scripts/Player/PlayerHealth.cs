@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite playerHurt;
 
     public static event Action OnPlayerDied;
+    public static event Action OnPlayerHurt;
 
     private void Start()
     {
@@ -21,11 +22,15 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
         SetHearts();
-        StartCoroutine(Hurt());
+        //StartCoroutine(Hurt());
         // The player is dead
         if(health <= 0)
         {
             OnPlayerDied.Invoke();
+        }
+        else
+        {
+            OnPlayerHurt.Invoke();
         }
     }
 
@@ -45,12 +50,12 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Change the color of the spirte when the player is hurt
-    IEnumerator Hurt()
-    {
-        Sprite initSprite = playerSpriteRenderer.sprite;
-        playerSpriteRenderer.sprite = playerHurt;
-        yield return new WaitForSeconds(0.2f);
-        playerSpriteRenderer.sprite = initSprite;
-    }
+    //IEnumerator Hurt()
+    //{
+    //    Sprite initSprite = playerSpriteRenderer.sprite;
+    //    playerSpriteRenderer.sprite = playerHurt;
+    //    yield return new WaitForSeconds(0.2f);
+    //    playerSpriteRenderer.sprite = initSprite;
+    //}
 
 }
