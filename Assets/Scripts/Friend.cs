@@ -12,12 +12,17 @@ public class Friend : MonoBehaviour, ICollectable
     public GameObject FriendMarker { get { return friendMarker; } }
     private bool markerRight; // Is the marker is on the right side of the friend
 
+    private Animator animator;
+    private Vector3 currentVelocity = Vector3.zero; // Vitesse pour SmoothDamp
+
     private void Start()
     {
         markerRight = true;
+        animator = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
+
         if (followed != null)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -30,11 +35,45 @@ public class Friend : MonoBehaviour, ICollectable
             {
                 FlipMarkerFriend();
             }
+
+            if (Vector3.Distance(transform.position, followed.position) > 0.1f) // L'ami est encore en mouvement
+            {
+                animator.SetBool("IsWalkingRight", transform.position.x < followed.position.x);
+                animator.SetBool("IsWalkingLeft", transform.position.x > followed.position.x);
+            }
+            else // L'ami est arrivé à la position cible
+            {
+                animator.SetBool("IsWalkingLeft", false);
+                animator.SetBool("IsWalkingRight", false);
+            }
+            //if (horizontalInput > 0)
+            //{
+            //    animator.SetBool("IsWalkingRight", true);
+            //}
+            //else if (horizontalInput < 0)
+            //{
+            //    animator.SetBool("IsWalkingLeft", true);
+            //}
+            //else
+            //{
+            //    animator.SetBool("IsWalkingLeft", false);
+            //    animator.SetBool("IsWalkingRight", false);
+            //}
+
+            //transform.position = Vector3.MoveTowards(transform.position, followed.position, speed * Time.deltaTime);
+
             transform.position = Vector3.Lerp(transform.position, followed.position, Time.deltaTime * speed);
+            //transform.position = followed.position;
+
+
             //Vector3 direction = followed.position - transform.position;
             //this.transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
-        
+    }
+
+    private void LateUpdate()
+    {
+
     }
 
     // We change the marker to be on the other side of the friend, to follow the player movement
