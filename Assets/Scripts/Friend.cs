@@ -30,9 +30,9 @@ public class Friend : MonoBehaviour, ICollectable
             {
                 FlipMarkerFriend();
             }
-
-            Vector3 direction = followed.position - transform.position;
-            this.transform.Translate(direction.normalized * Time.deltaTime * speed);
+            transform.position = Vector3.Lerp(transform.position, followed.position, Time.deltaTime * speed);
+            //Vector3 direction = followed.position - transform.position;
+            //this.transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
         
     }
