@@ -23,6 +23,7 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
+    // Respawn the player to the last checkpoint or at the start of the game
     private void Respawn()
     {
         transform.position = lastCheckpoint;
