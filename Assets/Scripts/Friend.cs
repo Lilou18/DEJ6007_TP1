@@ -5,11 +5,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Friend : MonoBehaviour, ICollectable
 {
-    private Transform followed;
-
-    [SerializeField] public Transform Followed { get{return followed;} set{ if (followed != null) { followed = value; }} }
+    [SerializeField] private Transform followed;
+    [SerializeField] public Transform Followed { get{return followed;} set{ if (value != null) { followed = value; }} }
     [SerializeField] float speed;
     [SerializeField] GameObject friendMarker;
+    public GameObject FriendMarker { get { return friendMarker; } }
     private bool markerRight; // Is the marker is on the right side of the friend
 
     private void Start()

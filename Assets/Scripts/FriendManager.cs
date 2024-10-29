@@ -5,11 +5,11 @@ using UnityEngine;
 public class FriendManager : MonoBehaviour
 {
     [SerializeField] private List<Friend> friends;
+    [SerializeField] Transform friendMarker;
 
     private void Start()
     {
-        friends = new List<Friend>();
-        //friends.Add()
+        friends = new List<Friend>();        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,11 +20,12 @@ public class FriendManager : MonoBehaviour
             newFriend.gameObject.GetComponent<CircleCollider2D>().enabled = false; 
             if(friends.Count == 0)
             {
-                newFriend.Followed = this.transform;
+                newFriend.Followed = friendMarker; // On indique au premier ami trouvé qu'il doit suivre le joueur
             }
             else
             {
-                //newFriend.Followed = friends
+                // Les autres amis suivent le dernier ami trouvé
+                newFriend.Followed = friends[friends.Count - 1].FriendMarker.transform;
             }
             friends.Add(newFriend);
         }
