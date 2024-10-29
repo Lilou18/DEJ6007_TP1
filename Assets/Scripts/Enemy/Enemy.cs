@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
             canChase = false;
             playerHealth = collision.transform.GetComponent<PlayerHealth>();
             animator.SetBool("Attack", true);
-            StartCoroutine(AnimationEnd(1f));
+            StartCoroutine(AnimationEnd(0.4f));
         }
     }
 
@@ -92,7 +92,7 @@ public class Enemy : MonoBehaviour
             canChase = false;
             playerHealth = collision.transform.GetComponent<PlayerHealth>();
             animator.SetBool("Attack", true);
-            StartCoroutine(AnimationEnd(1f));
+            StartCoroutine(AnimationEnd(0.4f));
         }
 
     }
