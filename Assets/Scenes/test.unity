@@ -1464,11 +1464,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98953561798833797, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
       propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 98953561798833797, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: EnemyMelee
       objectReference: {fileID: 0}
     - target: {fileID: 1100229940473334046, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
       propertyPath: target
@@ -1478,14 +1474,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1595653163}
-    - target: {fileID: 3179429102644572596, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
-      propertyPath: patrolPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 318369908}
-    - target: {fileID: 3179429102644572596, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
-      propertyPath: patrolPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 783644592}
     - target: {fileID: 3242971976912349294, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
       propertyPath: target
       value: 
@@ -1553,10 +1541,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7143328885822097543, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1889124810}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
 --- !u!1 &824004583 stripped
 GameObject:
@@ -2706,23 +2691,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1889124806 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7143328885822097543, guid: 1a4df3ebc0b0d7243971f7f88fdcdfef, type: 3}
-  m_PrefabInstance: {fileID: 796703982}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1889124810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889124806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea1e3d31d3b2c04685e8aba559d8db2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1991447088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,7 +3732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6101902945859330949, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7337091800559495486, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: patrolPoints.Array.data[0]

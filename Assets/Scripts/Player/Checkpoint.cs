@@ -35,11 +35,6 @@ public class Checkpoint : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerSpriteRenderer.sprite = initSprite;
         transform.position = lastCheckpoint;
-
-        //    Sprite initSprite = playerSpriteRenderer.sprite;
-        //    playerSpriteRenderer.sprite = playerHurt;
-        //    yield return new WaitForSeconds(0.2f);
-        //    playerSpriteRenderer.sprite = initSprite;
     }
 
     private void OnDisable()

@@ -4,7 +4,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyMelee : MonoBehaviour
 {
     [SerializeField] private float detectDistance;
     [SerializeField] Animator animator;
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     EnemyPatrol patrol;
     EyeControl[] eyeControl;
 
-    EnemyAttack enemyAttack;
+    EnemyMeleeAttack enemyAttack;
 
     void Start()
     {
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         patrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
-        enemyAttack = GetComponentInChildren<EnemyAttack>();
+        enemyAttack = GetComponentInChildren<EnemyMeleeAttack>();
     }
     void Update()
     {        
