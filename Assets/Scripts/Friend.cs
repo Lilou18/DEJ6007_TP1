@@ -46,28 +46,7 @@ public class Friend : MonoBehaviour, ICollectable
                 animator.SetBool("IsWalkingLeft", false);
                 animator.SetBool("IsWalkingRight", false);
             }
-            //if (horizontalInput > 0)
-            //{
-            //    animator.SetBool("IsWalkingRight", true);
-            //}
-            //else if (horizontalInput < 0)
-            //{
-            //    animator.SetBool("IsWalkingLeft", true);
-            //}
-            //else
-            //{
-            //    animator.SetBool("IsWalkingLeft", false);
-            //    animator.SetBool("IsWalkingRight", false);
-            //}
-
-            //transform.position = Vector3.MoveTowards(transform.position, followed.position, speed * Time.deltaTime);
-
             transform.position = Vector3.Lerp(transform.position, followed.position, Time.deltaTime * speed);
-            //transform.position = followed.position;
-
-
-            //Vector3 direction = followed.position - transform.position;
-            //this.transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
     }
 

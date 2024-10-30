@@ -5,10 +5,14 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     Vector3 lastCheckpoint; // Last checkpoint of the player
+    SpriteRenderer playerSpriteRenderer;
+    [SerializeField] Sprite spritePlayerHurt;
 
     private void Start()
     {
         lastCheckpoint = transform.position;
+        playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        PlayerHealth.OnPlayerHurt += PlayerHurt;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,12 +20,30 @@ public class Checkpoint : MonoBehaviour
         if (collision.gameObject.tag == "Checkpoint")
         {
             lastCheckpoint = collision.transform.position; // We update our checkpoint
-            collision.gameObject.GetComponent<Collider>().enabled = false; // Keep the player from reactivating an old checkpoint
+            collision.gameObject.GetComponent<Collider2D>().enabled = false; // Keep the player from reactivating an old checkpoint
         }
     }
 
-    public void Respawn()
+    private void PlayerHurt()
     {
+        StartCoroutine(Respawn());
+    }
+    private IEnumerator Respawn()
+    {
+        Sprite initSprite = playerSpriteRenderer.sprite;
+        playerSpriteRenderer.sprite = spritePlayerHurt;
+        yield return new WaitForSeconds(0.5f);
+        playerSpriteRenderer.sprite = initSprite;
         transform.position = lastCheckpoint;
+
+        //    Sprite initSprite = playerSpriteRenderer.sprite;
+        //    playerSpriteRenderer.sprite = playerHurt;
+        //    yield return new WaitForSeconds(0.2f);
+        //    playerSpriteRenderer.sprite = initSprite;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.OnPlayerHurt -= PlayerHurt;
     }
 }

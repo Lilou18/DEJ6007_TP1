@@ -7,11 +7,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float detectDistance;
-    Animator animator;
+    [SerializeField] Animator animator;
 
     PlayerHealth playerHealth;
     private bool canChase;
-    private int enemyDamage;
     bool canAttack;
 
     [SerializeField] GameObject exclamation;    
@@ -27,10 +26,11 @@ public class Enemy : MonoBehaviour
     EnemyPatrol patrol;
     EyeControl[] eyeControl;
 
+    EnemyAttack enemyAttack;
+
     void Start()
     {
-        canAttack = true;
-        enemyDamage = 1;      
+        canAttack = true;   
         initScale = transform.localScale;
         playerIsVisible = false;
         canChase = true;
@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         patrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
+        enemyAttack = GetComponentInChildren<EnemyAttack>();
     }
     void Update()
     {        
@@ -65,12 +66,13 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" && canAttack)
         {
-            print("Enter");
+            print("OnTriggerEnter");
             canAttack = false;
             canChase = false;
             playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            enemyAttack.Health = playerHealth;
             animator.SetBool("Attack", true);
-            StartCoroutine(AnimationEnd(0.4f));
+            StartCoroutine(AnimationEnd(0.41f));
         }
     }
 
@@ -78,38 +80,36 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("EXIT");
             canChase = true;
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player" && canAttack)
-        {
-            print("STAY");
-            canAttack = false;
-            canChase = false;
-            playerHealth = collision.transform.GetComponent<PlayerHealth>();
-            animator.SetBool("Attack", true);
-            StartCoroutine(AnimationEnd(0.4f));
-        }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player" && canAttack)
+    //    {
+    //        print("STAY");
+    //        canAttack = false;
+    //        canChase = false;
+    //        playerHealth = collision.transform.GetComponent<PlayerHealth>();
+    //        animator.SetBool("Attack", true);
+    //        StartCoroutine(AnimationEnd(0.4f));
+    //    }
 
-    }
+    //}
     IEnumerator AnimationEnd(float animationTime)
     {
         yield return new WaitForSeconds(animationTime);
-        TakeDamage();
+        //TakeDamage();
         animator.SetBool("Attack", false);
         canAttack = true;
         print("canAttack");
     }
 
-    private void TakeDamage()
-    {
-        playerHealth.TakeDamage(enemyDamage);
-
-    }
+    //private void TakeDamage()
+    //{
+    //    playerHealth.TakeDamage(enemyDamage);
+    //}
     private void ChasePlayer()
     {
         Vector3 direction = new Vector3(target.transform.position.x, 0, 0) - new Vector3(transform.position.x, transform.position.y, transform.position.z);
