@@ -20,13 +20,12 @@ public class Score : MonoBehaviour
         friendManager = GetComponent<FriendManager>();
         playerHealth = GetComponent<PlayerHealth>();
         playerCollection = GetComponent<PlayerCollection>();
-        GameManager.OnLevelFinished += SetScore;
+        PlayerCollision.OnGameEnd += SetScore;
     }
 
     public void SetScore()
     {
-        StartCoroutine("WaitForScorePanel");
-       
+        StartCoroutine("WaitForScorePanel");       
     }
 
     private IEnumerator WaitForScorePanel()
@@ -36,17 +35,15 @@ public class Score : MonoBehaviour
         print(friendManager.NumberFriends);
         print(playerHealth.health);
         print(playerCollection.NumberSouls);
-        print(totalScore);
-
+        
         if (OnSetScore != null)
         {
             OnSetScore.Invoke(totalScore);
-            print("On a invoke");
         }
     }
 
     private void OnDisable()
     {
-        GameManager.OnLevelFinished -= SetScore;
+        PlayerCollision.OnGameEnd -= SetScore;
     }
 }

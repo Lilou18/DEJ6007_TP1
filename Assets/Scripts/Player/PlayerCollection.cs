@@ -10,7 +10,7 @@ public class PlayerCollection : MonoBehaviour
         ICollectable collectible = collision.GetComponent<ICollectable>();
         if(collectible != null)
         {
-            if(collision.gameObject.tag == "soul")
+            if(collision.gameObject.tag == "Soul")
             {
                 AddSouls();
             }

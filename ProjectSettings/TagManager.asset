@@ -13,6 +13,7 @@ TagManager:
   - Friend
   - Checkpoint
   - End
+  - Soul
   layers:
   - Default
   - TransparentFX

@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject deadPanel;
     [SerializeField] GameObject scorePanel;
 
-    public static event Action OnLevelFinished;
-
     private void Start()
     {
         PlayerHealth.OnPlayerDied += PlayerDie;
@@ -32,13 +30,6 @@ public class GameManager : MonoBehaviour
     public void FinishLevel()
     {
         scorePanel.SetActive(true);
-        //ScoreUI scoreUI = scorePanel.GetComponent<ScoreUI>();
-       // if(scoreUI != null)
-        //{
-            //OnLevelFinished.Invoke();
-            //Score.OnSetScore += scoreUI.UpdateScoreText;
-        //}
-        OnLevelFinished.Invoke();
     }
     private void OnDisable()
     {
