@@ -12,6 +12,7 @@ TagManager:
   - enemys
   - Friend
   - Checkpoint
+  - End
   layers:
   - Default
   - TransparentFX

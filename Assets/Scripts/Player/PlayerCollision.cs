@@ -1,12 +1,14 @@
- using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField] GameObject deadPanel;
     private PlayerHealth playerHealth;
+
+    public static event Action OnGameEnd;
 
     private void Start()
     {
@@ -23,6 +25,10 @@ public class PlayerCollision : MonoBehaviour
         {
             playerHealth.TakeDamage(1);
             Destroy(collision.gameObject);
+        }
+        else if(collision.gameObject.tag == "End")
+        {
+            OnGameEnd.Invoke();
         }
         
     }
