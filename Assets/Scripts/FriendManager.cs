@@ -6,10 +6,12 @@ public class FriendManager : MonoBehaviour
 {
     [SerializeField] private List<Friend> friends;
     [SerializeField] Transform friendMarker;
+    [SerializeField] public int NumberFriends { get; private set; }
 
     private void Start()
     {
-        friends = new List<Friend>();        
+        friends = new List<Friend>();
+        NumberFriends = 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -28,6 +30,7 @@ public class FriendManager : MonoBehaviour
                 newFriend.Followed = friends[friends.Count - 1].FriendMarker.transform;
             }
             friends.Add(newFriend);
+            NumberFriends++;
         }
     }
 }

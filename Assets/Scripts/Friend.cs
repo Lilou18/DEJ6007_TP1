@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Friend : MonoBehaviour, ICollectable
-{
+public class Friend : MonoBehaviour
+{ 
     [SerializeField] private Transform followed;
     [SerializeField] public Transform Followed { get{return followed;} set{ if (value != null) { followed = value; }} }
     [SerializeField] float speed;
@@ -63,10 +63,4 @@ public class Friend : MonoBehaviour, ICollectable
         friendMarkerNewPosition.x = -friendMarkerNewPosition.x;
         friendMarker.transform.localPosition = friendMarkerNewPosition;
     }
-
-    public void Collect()
-    {
-
-    }
-
 }

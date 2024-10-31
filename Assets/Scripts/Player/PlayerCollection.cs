@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class PlayerCollection : MonoBehaviour
 {
+    public int NumberSouls { get; private set; }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ICollectable collectible = collision.GetComponent<ICollectable>();
         if(collectible != null)
         {
+            if(collision.gameObject.tag == "soul")
+            {
+                AddSouls();
+            }
             collectible.Collect();
         }
+    }
+
+    public void AddSouls()
+    {
+        NumberSouls++;
     }
 }
