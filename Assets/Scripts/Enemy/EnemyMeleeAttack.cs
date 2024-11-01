@@ -7,17 +7,19 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     private int enemyDamage;
     PlayerHealth health;
-    public PlayerHealth Health { get { return health; } set { if (value != null) { health = value; } } }
+    public PlayerHealth PlayerHealth { get { return health; } set { if (value != null) { health = value; } } } // Get a reference to player health
 
     private void Start()
     {
         enemyDamage = 1;
     }
+
+    // Animation event that is called when the Melee enemy attack
     public void Attack()
     {
-        if(Health != null)
+        if(PlayerHealth != null)
         {
-            Health.TakeDamage(enemyDamage);
+            PlayerHealth.TakeDamage(enemyDamage);
         }
     }
 }
