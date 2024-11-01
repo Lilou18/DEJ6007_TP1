@@ -10,13 +10,16 @@ public class MovingPlatform : MonoBehaviour
     private Transform target;
     [SerializeField] float platformSpeed;
 
+    GameObject player;
+    Transform initParent;
+
     private void Start()
     {
         target = platformDestinations[0];
         index = 0;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Vector2.Distance(transform.position, target.position) <= 0.1f)
         {
@@ -37,5 +40,23 @@ public class MovingPlatform : MonoBehaviour
             index = 0;
         }
         return index;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            player = collision.gameObject;
+            initParent = player.transform.parent;
+            collision.gameObject.transform.parent = transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.transform.parent = null;
+        }
     }
 }

@@ -25,6 +25,7 @@ public class PlayerCollision : MonoBehaviour
         {
             playerHealth.TakeDamage(1);
             Destroy(collision.gameObject);
+            //SoundManager.Instance.PlaySound(SoundManager.Instance.Test);
         }
         else if(collision.gameObject.tag == "End")
         {
