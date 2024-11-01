@@ -5260,9 +5260,9 @@ GameObject:
   - component: {fileID: 1533057561297156443}
   - component: {fileID: 6846568194876726801}
   - component: {fileID: 245238079894646445}
+  - component: {fileID: 5565606503203623234}
   - component: {fileID: 4426128585514416149}
   - component: {fileID: 5476973688146980902}
-  - component: {fileID: 5565606503203623234}
   - component: {fileID: 3900082340707264866}
   - component: {fileID: 8146325319598201858}
   - component: {fileID: 6502345183700283426}
@@ -5355,42 +5355,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4426128585514416149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645147289926609741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4218f80857d837741b2bbcf4329f1d5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpForce: 15
-  rb: {fileID: 245238079894646445}
-  platformsLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  animator: {fileID: 6301696613733318808}
-  distanceDelta: 0.01
-  dashVelocity: 20
-  dashTime: 0.2
-  dashCoolDown: 1
-  friendMarker: {fileID: 902007039232970573}
---- !u!114 &5476973688146980902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645147289926609741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97eb8ae79c920de4ab0bcf924f2ace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!96 &5565606503203623234
 TrailRenderer:
   serializedVersion: 3
@@ -5504,6 +5468,43 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4426128585514416149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645147289926609741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218f80857d837741b2bbcf4329f1d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  jumpForce: 15
+  rb: {fileID: 245238079894646445}
+  platformsLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  animator: {fileID: 6301696613733318808}
+  distanceDelta: 0.01
+  trailRenderer: {fileID: 5565606503203623234}
+  dashVelocity: 20
+  dashTime: 0.2
+  dashCoolDown: 1
+  friendMarker: {fileID: 902007039232970573}
+--- !u!114 &5476973688146980902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645147289926609741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97eb8ae79c920de4ab0bcf924f2ace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3900082340707264866
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,8 +21,9 @@ public class PlayerCollision : MonoBehaviour
         // If the player falls then we make him repsawn and loose a life
         if(collision.gameObject.tag == "Fall")
         {
+            this.transform.SetParent(null);
             playerHealth.TakeDamage(1);
-
+            
             // Keep the camera from following the player when he falls into a hole
             Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
         }

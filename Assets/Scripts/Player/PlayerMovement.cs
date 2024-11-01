@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float distanceDelta;
 
     // Dash variables
-    private TrailRenderer trailRenderer;
+    [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private float dashVelocity;
     [SerializeField] private float dashTime;
     [SerializeField]private float dashCoolDown;
@@ -34,13 +34,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        trailRenderer = GetComponent<TrailRenderer>();
+        //trailRenderer = GetComponent<TrailRenderer>();
     }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
         canDash = true;
+
     }
      
     void Update()

@@ -20,9 +20,38 @@ public class Friend : MonoBehaviour
         markerRight = true;
         animator = GetComponentInChildren<Animator>();
     }
-    private void Update()
-    {
+    //private void Update()
+    //{
 
+    //    if (followed != null)
+    //    {
+    //        float horizontalInput = Input.GetAxis("Horizontal");
+
+    //        if (horizontalInput > 0 && markerRight) // The friend is mooving to the right and the marker is on the right side
+    //        {
+    //            FlipMarkerFriend();
+    //        }
+    //        else if (horizontalInput < 0 && !markerRight) //// The friend is mooving to the left and the marker is on the left side
+    //        {
+    //            FlipMarkerFriend();
+    //        }
+
+    //        if (Vector3.Distance(transform.position, followed.position) > 0.1f) // L'ami est encore en mouvement
+    //        {
+    //            animator.SetBool("IsWalkingRight", transform.position.x < followed.position.x);
+    //            animator.SetBool("IsWalkingLeft", transform.position.x > followed.position.x);
+    //        }
+    //        else // L'ami est arrivé à la position cible
+    //        {
+    //            animator.SetBool("IsWalkingLeft", false);
+    //            animator.SetBool("IsWalkingRight", false);
+    //        }
+    //        transform.position = Vector3.Lerp(transform.position, followed.position, Time.deltaTime * speed);
+    //    }
+    //}
+
+    private void FixedUpdate()
+    {
         if (followed != null)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -48,11 +77,6 @@ public class Friend : MonoBehaviour
             }
             transform.position = Vector3.Lerp(transform.position, followed.position, Time.deltaTime * speed);
         }
-    }
-
-    private void LateUpdate()
-    {
-
     }
 
     // We change the marker to be on the other side of the friend, to follow the player movement

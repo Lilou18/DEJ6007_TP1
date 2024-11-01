@@ -17,7 +17,6 @@ public class ScoreUI : MonoBehaviour
 
     public void UpdateScoreText(int score)
     {
-        print("Le score est " + score.ToString());
         scorePanel.SetActive(true);
         scoreText.text = "Score: " + score.ToString();
     }

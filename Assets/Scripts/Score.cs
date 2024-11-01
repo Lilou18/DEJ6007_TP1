@@ -32,9 +32,6 @@ public class Score : MonoBehaviour
     {
         yield return new WaitUntil(() => scorePanel.activeInHierarchy);
         totalScore = (friendManager.NumberFriends * 5) + (playerHealth.health * 5) + (playerCollection.NumberSouls * 2);
-        print(friendManager.NumberFriends);
-        print(playerHealth.health);
-        print(playerCollection.NumberSouls);
         
         if (OnSetScore != null)
         {
