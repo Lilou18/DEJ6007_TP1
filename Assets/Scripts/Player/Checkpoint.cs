@@ -35,6 +35,7 @@ public class Checkpoint : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerSpriteRenderer.sprite = initSprite;
         transform.position = lastCheckpoint;
+        Camera.main.gameObject.GetComponent<CameraMovement>().enabled = true;
     }
 
     private void OnDisable()

@@ -7,7 +7,9 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] public int health { get; private set;}
     [SerializeField] GameObject[] heart;
+
     public static event Action OnPlayerDied;
+
     public static event Action OnPlayerHurt;
 
     private void Start()
@@ -25,7 +27,6 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            print(health);
             OnPlayerHurt.Invoke();
         }
     }

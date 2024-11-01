@@ -18,8 +18,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if(collision.gameObject.tag == "Fall")
         {
-            playerHealth.TakeDamage(playerHealth.health);
-            Time.timeScale = 0;
+            playerHealth.TakeDamage(1);
+            Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
         }
         else if(collision.gameObject.tag == "FireBall")
         {

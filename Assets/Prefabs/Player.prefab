@@ -460,14 +460,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5846034370387717191}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -535,7 +535,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -588,7 +588,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -642,7 +642,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.9772687, b: 1, a: 1}
+      maxColor: {r: 0.6603774, g: 0.10084307, b: 0.058561735, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1083,7 +1083,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -1170,7 +1170,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -1289,7 +1289,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1395,7 +1395,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -5266,7 +5266,8 @@ GameObject:
   - component: {fileID: 3900082340707264866}
   - component: {fileID: 8146325319598201858}
   - component: {fileID: 6502345183700283426}
-  - component: {fileID: 8935207149043610561}
+  - component: {fileID: 2259014326697874297}
+  - component: {fileID: 4443437632038292411}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -5390,7 +5391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97eb8ae79c920de4ab0bcf924f2ace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadPanel: {fileID: 0}
 --- !u!96 &5565606503203623234
 TrailRenderer:
   serializedVersion: 3
@@ -5520,7 +5520,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerHurt: {fileID: 21300000, guid: 79e0c191dbd9515428ccd05dad5e1a1c, type: 3}
 --- !u!114 &8146325319598201858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5547,7 +5546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4cc8c9095c271418d00e881aee56a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8935207149043610561
+--- !u!114 &2259014326697874297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5556,9 +5555,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6645147289926609741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf19acf99c22f547a4c125a5e8af57f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e06810b2ae97164791aa7e58ede70f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spritePlayerHurt: {fileID: 21300000, guid: 79e0c191dbd9515428ccd05dad5e1a1c, type: 3}
+--- !u!114 &4443437632038292411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645147289926609741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d52fe057fbe63448a272bc34133600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scorePanel: {fileID: 0}
 --- !u!1 &6898667797988772291
 GameObject:
   m_ObjectHideFlags: 0
