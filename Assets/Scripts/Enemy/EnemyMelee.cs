@@ -44,7 +44,7 @@ public class EnemyMelee : MonoBehaviour
     {        
         if (playerIsVisible)
         {
-            if (Vector2.Distance(transform.position, target.transform.position) < 4f)
+            if (Vector2.Distance(transform.position, target.transform.position) < detectDistance)
             {
                 exclamation.SetActive(true);
             }
@@ -110,25 +110,27 @@ public class EnemyMelee : MonoBehaviour
     private void ChasePlayer()
     {
         Vector3 direction = new Vector3(target.transform.position.x, 0, 0) - new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
-        enemySpeed = 3;
+        enemySpeed = 5;
+        //this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
+        this.transform.position = Vector2.MoveTowards(transform.position, target.position, enemySpeed * Time.deltaTime);
+
     }
 
     private void FixedUpdate()
     {
         // Check if the player is directly in front of the Melee enemy and if he's in his sight
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, 4f);
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, detectDistance);
         if (ray.collider != null)
         {
             
             playerIsVisible = ray.collider.CompareTag("Player");
             if (playerIsVisible)
             {    
-                Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x, Color.green);
+                Debug.DrawRay(transform.position, transform.right * detectDistance * transform.localScale.x, Color.green);
             }
             else
             {
-                Debug.DrawRay(transform.position, transform.right * 4f * transform.localScale.x , Color.red);
+                Debug.DrawRay(transform.position, transform.right * detectDistance * transform.localScale.x , Color.red);
             }
         }
         else

@@ -26,13 +26,20 @@ public class EnemyRange : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] GameObject eye;
+    Color initEyeColor;
+
+    private void Awake()
+    {
+        initEyeColor = eye.gameObject.GetComponent<SpriteRenderer>().color;
+    }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
-        detectRange = 10f;
+        //detectRange = 10f;
 
         lastShootTime = 0f;
         attackCooldown = 1f;
@@ -43,10 +50,12 @@ public class EnemyRange : MonoBehaviour
         if (isPlayerVisible)
         {          
             EyesFollowPlayer(true);
+            eye.gameObject.GetComponent<SpriteRenderer>().color = new Color(192f / 255f, 32f / 255f, 30f / 255f, 1f);
             ShootFireBall();
         }
         else
         {
+            eye.gameObject.GetComponent<SpriteRenderer>().color = initEyeColor;
             EyesFollowPlayer(false);
             enemyPatrol.Patrol();
         }

@@ -21,7 +21,6 @@ public class CrushingBlock : MonoBehaviour
     {        
         initialPosition = transform.position;
         canFall = true;
-        fallingTimer = 0;
     }
     private void Update()
     {
