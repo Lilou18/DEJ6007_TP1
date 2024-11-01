@@ -19,6 +19,8 @@ public class PlayerCollision : MonoBehaviour
         if(collision.gameObject.tag == "Fall")
         {
             playerHealth.TakeDamage(1);
+
+            // Keep the camera from following the player when he falls into a hole
             Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
         }
         else if(collision.gameObject.tag == "FireBall")
@@ -26,6 +28,10 @@ public class PlayerCollision : MonoBehaviour
             playerHealth.TakeDamage(1);
             Destroy(collision.gameObject);
             //SoundManager.Instance.PlaySound(SoundManager.Instance.Test);
+        }
+        else if(collision.gameObject.tag == "CrushingBlock")
+        {
+            playerHealth.TakeDamage(1);
         }
         else if(collision.gameObject.tag == "End")
         {
@@ -37,10 +43,6 @@ public class PlayerCollision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
-        {
-            playerHealth.TakeDamage(1);
-        }
-        if (collision.gameObject.tag == "CrushingBlock")
         {
             playerHealth.TakeDamage(1);
         }

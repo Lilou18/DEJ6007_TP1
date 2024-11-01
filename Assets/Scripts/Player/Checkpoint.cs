@@ -8,10 +8,13 @@ public class Checkpoint : MonoBehaviour
     SpriteRenderer playerSpriteRenderer;
     [SerializeField] Sprite spritePlayerHurt;
 
+    private PlayerMovement playerMovement;
+
     private void Start()
     {
-        lastCheckpoint = transform.position;
+        lastCheckpoint = transform.position; // First checkpoint is at the start of the game
         playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        playerMovement = GetComponent<PlayerMovement>();
         PlayerHealth.OnPlayerHurt += PlayerHurt;
     }
 
@@ -30,12 +33,20 @@ public class Checkpoint : MonoBehaviour
     }
     private IEnumerator Respawn()
     {
+        playerMovement.enabled = false;
+
+        // Change the color of the sprite to show that the player has been hurt
         Sprite initSprite = playerSpriteRenderer.sprite;
         playerSpriteRenderer.sprite = spritePlayerHurt;
         yield return new WaitForSeconds(0.5f);
         playerSpriteRenderer.sprite = initSprite;
+
+        // Change the position of the player at the last checkpoint or the start of the game
         transform.position = lastCheckpoint;
+
+        // Make sure the camera following script is activated (it's desactivated when the player falls into a hole)
         Camera.main.gameObject.GetComponent<CameraMovement>().enabled = true;
+        playerMovement.enabled = true;
     }
 
     private void OnDisable()
