@@ -56,7 +56,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.transform.parent = null;
+            collision.gameObject.transform.parent = initParent;
         }
     }
 }

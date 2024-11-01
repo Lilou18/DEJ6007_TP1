@@ -40,6 +40,10 @@ public class PlayerCollision : MonoBehaviour
         {
             playerHealth.TakeDamage(1);
         }
+        if (collision.gameObject.tag == "CrushingBlock")
+        {
+            playerHealth.TakeDamage(1);
+        }
     }
 
 }
