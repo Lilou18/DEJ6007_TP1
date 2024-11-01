@@ -12,6 +12,12 @@ public class CameraMovement : MonoBehaviour
     {
         offset = transform.position - targetPlayer.position;
     }
+
+    //private void LateUpdate()
+    //{
+    //    Vector3 newCameraPosition = targetPlayer.position + offset;
+    //    transform.position = Vector3.Lerp(transform.position, newCameraPosition, Time.deltaTime * camMoveSpeed);
+    //}
     private void FixedUpdate()
     {
         Vector3 newCameraPosition = targetPlayer.position + offset;

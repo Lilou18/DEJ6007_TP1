@@ -29,14 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canDash;
     private bool waitCoolDown;
 
-    [SerializeField] GameObject friendMarker;
-    bool markerRight = true;
-
-    //private bool canDash;
-    //private bool isDashing;
-    //private float dashingPower = 24f;
-    //private float dashingTime = 0.2f;
-    //private float dashingCooldown = 1f;
+    [SerializeField] GameObject friendMarker; // Gameobject near the player that the friends are following
+    bool markerRight = true; // Is the marker on the right side of the player
 
     private void Awake()
     {
@@ -46,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
-        
-
         canDash = true;
     }
      
@@ -82,10 +74,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsWalkingRight", false);
         }
 
-        if (IsGrounded())
-        {
-            doubleJump = true;
-        }
+        // Check if the player can dash
         if(IsGrounded() && waitCoolDown)
         {
             canDash = true;
@@ -94,23 +83,29 @@ public class PlayerMovement : MonoBehaviour
        
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // If the player is on the ground then he can jump
             if (IsGrounded())
             {
-                rb.velocity = Vector2.up * jumpForce; // Modifier gravity scale                
+                rb.velocity = Vector2.up * jumpForce; // Modifier gravity scale
+                doubleJump =true;
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && doubleJump){
+            // If the player as not already double jump then he can double jump
+            else if ( doubleJump){
                 rb.velocity = Vector2.up * jumpForce;
                 doubleJump = false;
             }
         }
-
+        // Check if the player can dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             isDashing = true;
             canDash = false;
             trailRenderer.emitting = true;
+
+            // The player control the dash direction
             dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+            // Set a default direction if the player hit the dash button
             if(dashDirection == Vector2.zero)
             {
                 dashDirection = new Vector2(transform.localScale.x, 0);
@@ -124,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
     }
+    // We change the position of the friend marker so the friends look like they are following the same direction has the player
     private void FlipMarkerFriend()
     {
         markerRight = !markerRight;
@@ -135,15 +131,22 @@ public class PlayerMovement : MonoBehaviour
     // https://www.youtube.com/watch?v=ptvK4Fp5vRY
     //https://www.youtube.com/watch?v=DEGEEZmfTT0
     //https://www.youtube.com/watch?v=9pKXXNgCgq8
+    // Make sure the player is on the ground before he can jump
     private bool IsGrounded()
     {
         float distance = circleCollider2D.bounds.extents.y + distanceDelta;
-        Debug.DrawRay(transform.position, Vector2.down * distance, Color.green);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, platformsLayerMask);
-        return hit.collider != null;
-        
+        Vector2 origin = (Vector2)transform.position - new Vector2(0, circleCollider2D.bounds.extents.y);
+
+        // We make sure if a single part of our player is on the platform
+        RaycastHit2D hitCenter = Physics2D.Raycast(origin, Vector2.down, distance, platformsLayerMask);
+        RaycastHit2D hitLeft = Physics2D.Raycast(origin + new Vector2(-circleCollider2D.bounds.extents.x, 0), Vector2.down, distance, platformsLayerMask);
+        RaycastHit2D hitRight = Physics2D.Raycast(origin + new Vector2(circleCollider2D.bounds.extents.x, 0), Vector2.down, distance, platformsLayerMask);
+
+        return hitCenter.collider != null || hitLeft.collider != null || hitRight.collider != null;
+
     }
 
+    // Cooldown after the player dashed
     private IEnumerator StopDashing()
     {
         yield return new WaitForSeconds(dashTime);
@@ -152,19 +155,4 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCoolDown);
         waitCoolDown = true;
     }
-
-    //private IEnumerator Dash()
-    //{
-    //    print("Hello!");
-    //    canDash = false;
-    //    isDashing = true;
-    //    float originalGravity = rb.gravityScale;
-    //    rb.gravityScale = 0f;
-    //    rb.velocity = new Vector2(Input.GetAxis("Horizontal") * dashingPower, 0f);
-    //    yield return new WaitForSeconds(dashingTime);
-    //    rb.gravityScale = originalGravity;
-    //    isDashing = false;
-    //    yield return new WaitForSeconds(dashingCooldown);
-    //    canDash = true;
-    //}
 }
