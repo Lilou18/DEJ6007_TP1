@@ -35,13 +35,7 @@ public class PlayerCollision : MonoBehaviour
                 Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
             }
             
-        }
-        else if(collision.gameObject.tag == "FireBall") // If the player enter in collision with a fireball then he takes damage
-        {
-            playerHealth.TakeDamage(1);
-            Destroy(collision.gameObject);
-            //SoundManager.Instance.PlaySound(SoundManager.Instance.Test);
-        }
+        }        
         else if(collision.gameObject.tag == "CrushingBlock") // If the player touch the crushing block he loose a life
         {
             playerHealth.TakeDamage(1);
@@ -65,6 +59,11 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             playerHealth.TakeDamage(1);
+        }
+        else if (collision.gameObject.tag == "FireBall") // If the player enter in collision with a fireball then he takes damage
+        {
+            playerHealth.TakeDamage(1);
+            //SoundManager.Instance.PlaySound(SoundManager.Instance.Test);
         }
     }
 

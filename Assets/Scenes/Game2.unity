@@ -31705,6 +31705,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3370581645453268439, guid: e002662ec86767c4d9904a197a72026f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3744055735889480021, guid: e002662ec86767c4d9904a197a72026f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4056892106082405395, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: m_SortingLayer
       value: 6
@@ -31729,6 +31737,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyEye
       objectReference: {fileID: 0}
+    - target: {fileID: 6101902945859330949, guid: e002662ec86767c4d9904a197a72026f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7337091800559495486, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
@@ -31737,6 +31749,10 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1363131961}
+    - target: {fileID: 7531099778951994488, guid: e002662ec86767c4d9904a197a72026f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7737668886385894638, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: eye
       value: 
@@ -31748,6 +31764,10 @@ PrefabInstance:
     - target: {fileID: 7737668886385894638, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: detectRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7737668886385894638, guid: e002662ec86767c4d9904a197a72026f, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     - target: {fileID: 8123104331802067321, guid: e002662ec86767c4d9904a197a72026f, type: 3}
       propertyPath: m_SortingLayer
@@ -35211,11 +35231,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 49.55
+      value: 5.43
       objectReference: {fileID: 0}
     - target: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13
+      value: 32.87
       objectReference: {fileID: 0}
     - target: {fileID: 1533057561297156443, guid: 7f95fcb27be6d914fb986bb4aea9e116, type: 3}
       propertyPath: m_LocalPosition.z
@@ -37719,7 +37739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1363131961}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PatrolPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -38037,7 +38057,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425986631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RangeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42537,7 +42557,7 @@ Transform:
   m_GameObject: {fileID: 1619765768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.620003, y: 15.279999, z: -10}
+  m_LocalPosition: {x: 5.500003, y: 35.149998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45166,7 +45186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089760722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PatrolPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

@@ -29,6 +29,7 @@ public class EnemyRange : MonoBehaviour
     [SerializeField] GameObject eye;
     Color initEyeColor;
 
+    [SerializeField] private LayerMask layerMask;
     private void Awake()
     {
         initEyeColor = eye.gameObject.GetComponent<SpriteRenderer>().color;
@@ -104,7 +105,7 @@ public class EnemyRange : MonoBehaviour
 
     private void IsPlayerVisible()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - this.transform.position, detectRange);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.position - this.transform.position, detectRange, ~layerMask);
         if(hit.collider != null)
         {
             isPlayerVisible = hit.collider.CompareTag("Player");
