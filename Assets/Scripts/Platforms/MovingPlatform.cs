@@ -59,12 +59,4 @@ public class MovingPlatform : MonoBehaviour
             collision.gameObject.transform.parent = initParent;
         }
     }
-
-    //private void OnDisable()
-    //{
-    //    if(player != null && player.transform.parent && this.gameObject.activeInHierarchy && player.activeInHierarchy)
-    //    {
-    //        player.transform.parent = initParent;
-    //    }
-    //}
 }

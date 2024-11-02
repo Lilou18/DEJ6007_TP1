@@ -18,7 +18,7 @@ public class ScoreUI : MonoBehaviour
     public void UpdateScoreText(int score)
     {
         scorePanel.SetActive(true);
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score : " + score.ToString();
     }
 
     private void OnDisable()
