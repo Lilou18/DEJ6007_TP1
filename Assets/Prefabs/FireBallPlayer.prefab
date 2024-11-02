@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 9017611122562249817}
   - component: {fileID: 2678668515992578549}
   - component: {fileID: 7840980333666663982}
+  - component: {fileID: -2094172713007614715}
   - component: {fileID: 3908280077750868533}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: FireBallPlayer
-  m_TagString: FireBall
+  m_TagString: FireBallPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1735853801
-  m_SortingLayer: 6
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 275058d002238d146abcc77be90eeb40, type: 3}
   m_Color: {r: 0, g: 0.94509804, b: 1, a: 1}
@@ -137,12 +138,24 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.2799999
+--- !u!114 &-2094172713007614715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389274838189453942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51338c589a6a1042a36c252b5a1b055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &3908280077750868533
 Rigidbody2D:
   serializedVersion: 4
