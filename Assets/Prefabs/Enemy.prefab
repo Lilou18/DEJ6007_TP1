@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 899648167121267718}
   - component: {fileID: 1318116625175117107}
   - component: {fileID: 7200750134916184002}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,6 +56,9 @@ MonoBehaviour:
   exclamation: {fileID: 1468721301663239514}
   target: {fileID: 0}
   enemySpeed: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!61 &7207382960270609591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -189,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5864190794303936518}
   - component: {fileID: 4523674746068492127}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +277,7 @@ GameObject:
   - component: {fileID: 7541167514156319280}
   - component: {fileID: 5881903110780885919}
   - component: {fileID: 7309569765580640549}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: TopHead
   m_TagString: WeakPoint
   m_Icon: {fileID: 0}
@@ -364,7 +367,7 @@ GameObject:
   - component: {fileID: 6972081149492223549}
   - component: {fileID: 6185488188166854435}
   - component: {fileID: 1100229940473334046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3073784567596866549}
   - component: {fileID: 5249969834407715555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Exclamation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +552,7 @@ GameObject:
   - component: {fileID: 6982626441553511149}
   - component: {fileID: 1433556777513985569}
   - component: {fileID: 6148595694673484457}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8964794301905815061}
   - component: {fileID: 5974223234919747753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +737,7 @@ GameObject:
   - component: {fileID: 9110229389879937702}
   - component: {fileID: 6135616125600049764}
   - component: {fileID: 7568611510193067164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +838,7 @@ GameObject:
   - component: {fileID: 2520692683424533252}
   - component: {fileID: 5172710135274599200}
   - component: {fileID: 8738955394853636959}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +939,7 @@ GameObject:
   - component: {fileID: 4427603707385835535}
   - component: {fileID: 4579131969873153994}
   - component: {fileID: 3242971976912349294}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1041,7 @@ GameObject:
   - component: {fileID: 5402023406140923075}
   - component: {fileID: 6391350248467584353}
   - component: {fileID: 5266146195693665350}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,7 +1163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4151978606840718166}
   - component: {fileID: 8938991927399546879}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,7 +1247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3911300431059535205}
   - component: {fileID: 7635664410081518603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1328,7 +1331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6853586075114043056}
   - component: {fileID: 6531972366083030497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

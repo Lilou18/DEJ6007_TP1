@@ -28,6 +28,8 @@ public class EnemyMelee : MonoBehaviour
 
     EnemyMeleeAttack enemyAttack;
 
+    [SerializeField] private LayerMask layerMask;
+
     void Start()
     {
         canAttack = true;   
@@ -119,7 +121,7 @@ public class EnemyMelee : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if the player is directly in front of the Melee enemy and if he's in his sight
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, detectDistance);
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, detectDistance, ~layerMask);
         if (ray.collider != null)
         {
             
