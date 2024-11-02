@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Checkpoint : MonoBehaviour
         {
             lastCheckpoint = collision.transform.position; // We update our checkpoint
             collision.gameObject.GetComponent<Collider2D>().enabled = false; // Keep the player from reactivating an old checkpoint
+            collision.gameObject.GetComponentInChildren<Light2D>().enabled = true;
         }
     }
 
