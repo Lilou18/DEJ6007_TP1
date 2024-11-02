@@ -54,9 +54,17 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && this.gameObject.activeInHierarchy)
         {
             collision.gameObject.transform.parent = initParent;
         }
     }
+
+    //private void OnDisable()
+    //{
+    //    if(player != null && player.transform.parent && this.gameObject.activeInHierarchy && player.activeInHierarchy)
+    //    {
+    //        player.transform.parent = initParent;
+    //    }
+    //}
 }
