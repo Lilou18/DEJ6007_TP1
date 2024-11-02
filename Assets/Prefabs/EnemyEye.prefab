@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6278145130295723055}
   - component: {fileID: 4056892106082405395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyEyeNerf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735853801
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c62a20bf148b8240b6b6a36dc6d914a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1244870880763822138}
   - component: {fileID: 8123104331802067321}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pupille
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,8 +154,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735853801
+  m_SortingLayer: 6
   m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5790186130570898672}
   - component: {fileID: 7337091800559495486}
   - component: {fileID: 7737668886385894638}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: EnemyEye
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -245,8 +245,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735853801
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cc2600d40bdc72346808aedc72f9c8d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -371,12 +371,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  detectRange: 0
+  detectRange: 10
   fireBulletPrefab: {fileID: 389274838189453942, guid: c09446f9d8c74e246927600ced0b2572, type: 3}
   pupil: {fileID: 1244870880763822138}
   fireBallSpeed: 7
   recoilDistance: 0.2
   attackCooldown: 0
+  eye: {fileID: 7531099778951994488}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!1 &7531099778951994488
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +392,7 @@ GameObject:
   - component: {fileID: 8238318926511666236}
   - component: {fileID: 4599814938956943310}
   - component: {fileID: 4867448662424779219}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,8 +453,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735853801
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.19215688, g: 0.3921569, b: 0.11764707, a: 1}
