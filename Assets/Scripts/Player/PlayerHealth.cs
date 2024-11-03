@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    // Manage the health of the player
     [SerializeField] public int health { get; private set;}
-    [SerializeField] GameObject[] heart;
+    [SerializeField] GameObject[] heart; // UI that represent the life of the player
 
-    public static event Action OnPlayerDied;
+    public static event Action OnPlayerDied; // Invoke this event when the player dies
 
-    public static event Action OnPlayerHurt;
+    public static event Action OnPlayerHurt; // Invoke this event when the player get hurt
 
-    private bool isInvincible;
+    private bool isInvincible; // Check if the player is invincible
 
     private void Start()
     {
@@ -24,7 +25,8 @@ public class PlayerHealth : MonoBehaviour
         if (!isInvincible)
         {
             health -= damage;
-            SetHearts();
+            SetHearts(); // Update the number of life of the player in the UI
+
             // The player is dead
             if (health <= 0)
             {
@@ -32,13 +34,16 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
+                // The player is hurt
                 OnPlayerHurt.Invoke();
             }
+            // When the player gets hurt he becomes invincible for 1 second
             StartCoroutine(Invincible());
         }
         
     }
 
+    // Set the number of hearts to be displayed correctly on the Canvas
     public void SetHearts()
     {
         for(int i = 0; i < heart.Length; i++)
@@ -54,6 +59,8 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // When the player gets hurt we want to make him invincible for 1 secund to make sure he doesn't take more damage before
+    // he respawns to the checkpoint or his initial position
     private IEnumerator Invincible()
     {
         isInvincible = true;
