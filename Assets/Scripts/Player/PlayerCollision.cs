@@ -10,31 +10,22 @@ public class PlayerCollision : MonoBehaviour
     Animator animator;
 
     public static event Action OnGameEnd;
-
-    private float damageCooldown; // Keep the player from taking damage multiple time when he falls into multiple collider
-    private float lastFallTime;
+        
 
     private void Start()
     {
         playerHealth = GetComponent<PlayerHealth>();
-        animator = GetComponentInChildren<Animator>();
-        damageCooldown = 0.5f;
-        lastFallTime = -damageCooldown; // Make sure the player will take the first fall damage
+        animator = GetComponentInChildren<Animator>();        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the player falls then we make him repsawn and loose a life
         if(collision.gameObject.tag == "Fall")
         {
-            if(Time.time >= lastFallTime + damageCooldown)
-            {
-                playerHealth.TakeDamage(1);
-                lastFallTime = Time.time;
+            playerHealth.TakeDamage(1);
 
-                // Disable camera follow when falling
-                Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
-            }
-            
+            // Disable camera follow when falling
+            Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
         }        
         else if(collision.gameObject.tag == "CrushingBlock") // If the player touch the crushing block he loose a life
         {

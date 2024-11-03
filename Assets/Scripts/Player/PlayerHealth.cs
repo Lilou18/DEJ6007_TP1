@@ -12,23 +12,31 @@ public class PlayerHealth : MonoBehaviour
 
     public static event Action OnPlayerHurt;
 
+    private bool isInvincible;
+
     private void Start()
     {
         health = 3;
+        isInvincible = false;
     }
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        SetHearts();
-        // The player is dead
-        if(health <= 0)
+        if (!isInvincible)
         {
-            OnPlayerDied.Invoke();
+            health -= damage;
+            SetHearts();
+            // The player is dead
+            if (health <= 0)
+            {
+                OnPlayerDied.Invoke();
+            }
+            else
+            {
+                OnPlayerHurt.Invoke();
+            }
+            StartCoroutine(Invincible());
         }
-        else
-        {
-            OnPlayerHurt.Invoke();
-        }
+        
     }
 
     public void SetHearts()
@@ -44,5 +52,12 @@ public class PlayerHealth : MonoBehaviour
                 heart[i].SetActive(false);
             }
         }
+    }
+
+    private IEnumerator Invincible()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(1f);
+        isInvincible = false;
     }
 }
