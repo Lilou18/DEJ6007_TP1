@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Eye : MonoBehaviour
 {
+    // Make the eyes of the player follow the mouse position
     void Update()
     {
         Vector3 targetDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
