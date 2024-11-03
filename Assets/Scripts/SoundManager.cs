@@ -49,11 +49,16 @@ public class SoundManager : MonoBehaviour
     // Play sound effect
     public void PlaySound(string songName)
     {
-        
+
         if (soundDictionary.ContainsKey(songName))
         {
             Sound sound = soundDictionary[songName];
             soundEffectSource.PlayOneShot(sound.audioClip, sound.volume);
+        }
+        else
+        {
+            print("no sonmg");
+
         }
     }
 

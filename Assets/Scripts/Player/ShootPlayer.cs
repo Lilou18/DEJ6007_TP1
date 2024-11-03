@@ -5,13 +5,15 @@ using UnityEngine.Rendering.Universal;
 
 public class ShootPlayer : MonoBehaviour
 {
+    // This class manage the ability to shoot of the player
+
     [SerializeField] private GameObject playerFireBallPrefab;
     [SerializeField] private float fireBallSpeed;
 
     private int numberFireBall; // Number of fireball the player can shoot
 
     [SerializeField] private float attackCooldown; // Cooldown between each fireball
-    private float lastShootTime;
+    private float lastShootTime;    // Last time the player shot
 
     private void Start()
     {
@@ -29,15 +31,19 @@ public class ShootPlayer : MonoBehaviour
         }
     }
 
+    // If the player trigger a collision with the special flower he can now shoot 5 fireballs
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Flower")
         {
+            print("here");
             numberFireBall = 5;
+            SoundManager.Instance.PlaySound("Flower");
             StartCoroutine(WaitFlowerGrow(collision.gameObject));
         }
     }
 
+    // We wait 10 seconds before the flower grows back and can give other fireballs to the player
     private IEnumerator WaitFlowerGrow(GameObject flower)
     {
         flower.GetComponentInChildren<Light2D>().enabled = false;
