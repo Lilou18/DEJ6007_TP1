@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    [SerializeField] Transform[] patrolPoints;
+    // This class manage the patrol movement of an enemy between different points
+
+    [SerializeField] Transform[] patrolPoints; // Points the enemy will patrol
     [SerializeField] float enemySpeed;
     int nextPointPatrol;
-    private Vector3 initScale;
+    private Vector3 initScale; // Used to change the direction the enemy is facing
 
     private void Start()
     {
@@ -16,6 +18,7 @@ public class EnemyPatrol : MonoBehaviour
     }
     public void Patrol()
     {
+        // If the enemy reaches his destination, he is given a new destination to patrol
         if (Vector2.Distance(transform.position, patrolPoints[nextPointPatrol].position) <= 0.2f)
         {
             nextPointPatrol++;
@@ -26,6 +29,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
+            // Walks toward the destination
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[nextPointPatrol].position, enemySpeed * Time.deltaTime);
 
             // Make sure the sprite is facing the good direction
