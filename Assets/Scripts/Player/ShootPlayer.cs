@@ -7,9 +7,9 @@ public class ShootPlayer : MonoBehaviour
     [SerializeField] GameObject playerFireBallPrefab;
     [SerializeField] float fireBallSpeed;
 
-    private int maxFireBall;
+    private int maxFireBall; // Maximum number of fireball
 
-    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackCooldown; // Cooldown between each fireball
     private float lastShootTime;
 
     private void Start()
@@ -21,12 +21,14 @@ public class ShootPlayer : MonoBehaviour
 
     private void Update()
     {
+        // When the player left click with his mouse he shoots fireball
         if (Input.GetMouseButtonDown(0))
         {
             ShootFireBallPlayer();
         }
     }
 
+    // Allow the player to shoot fireball in the mouse direction
     private void ShootFireBallPlayer()
     {
         // Cooldown between each attack
