@@ -55,11 +55,6 @@ public class SoundManager : MonoBehaviour
             Sound sound = soundDictionary[songName];
             soundEffectSource.PlayOneShot(sound.audioClip, sound.volume);
         }
-        else
-        {
-            print("no sonmg");
-
-        }
     }
 
     // Play background music on repeat

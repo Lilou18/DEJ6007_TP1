@@ -113,20 +113,6 @@ public class EnemyMelee : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player" && canAttack)
-    //    {
-    //        print("STAY");
-    //        canAttack = false;
-    //        canChase = false;
-    //        playerHealth = collision.transform.GetComponent<PlayerHealth>();
-    //        animator.SetBool("Attack", true);
-    //        StartCoroutine(AnimationEnd(0.4f));
-    //    }
-
-    //}
-
     // We wait until the animation has ended before attacking again
     IEnumerator AnimationEnd(float animationTime)
     {

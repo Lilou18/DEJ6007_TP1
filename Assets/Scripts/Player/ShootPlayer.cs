@@ -36,7 +36,6 @@ public class ShootPlayer : MonoBehaviour
     {
         if(collision.gameObject.tag == "Flower")
         {
-            print("here");
             numberFireBall = 5;
             SoundManager.Instance.PlaySound("Flower");
             StartCoroutine(WaitFlowerGrow(collision.gameObject));
