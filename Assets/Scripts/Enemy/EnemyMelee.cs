@@ -6,35 +6,33 @@ using UnityEngine;
 
 public class EnemyMelee : MonoBehaviour
 {
-    [SerializeField] private float detectDistance; // Distance where he can detect the player
+    // This class manage the behaviour of the melee enemy
+
+    [SerializeField] private float detectDistance;  // Distance where he can detect the player
+    [SerializeField] private LayerMask layerMask;   // The layer we dont want the ray to collide with
+                                                    // Here it's the collider of the enemy
     [SerializeField] Animator animator;
 
     PlayerHealth playerHealth;
     private bool canChase;
-    bool canAttack;
+    private bool canAttack;
 
-    [SerializeField] GameObject exclamation;    
+    [SerializeField] GameObject exclamation;    // Picture that shows to the player he's been spotted
 
-    [SerializeField] Transform target;
+    [SerializeField] Transform target;          // The player the enemy must attack
     [SerializeField] float enemySpeed;
     
+    private bool playerIsVisible;   // Can the enemy see the player
 
-    
-    private Vector3 initScale;
-    private bool playerIsVisible;
+    EnemyPatrol patrol; // Allow the enemy to patrol between multiple points
+    EyeControl[] eyeControl; // Allow the eyes of the enemy to follow the player
 
-    EnemyPatrol patrol;
-    EyeControl[] eyeControl;
-
-    EnemyMeleeAttack enemyAttack;
-    EnemyHealth health;
-
-    [SerializeField] private LayerMask layerMask; // The layer we dont want the ray to collide with
+    EnemyMeleeAttack enemyAttack; // Damage the player
+    EnemyHealth health;    
 
     void Start()
     {
-        canAttack = true;   
-        initScale = transform.localScale;
+        canAttack = true;
         playerIsVisible = false;
         canChase = true;
 
@@ -45,29 +43,34 @@ public class EnemyMelee : MonoBehaviour
         health = GetComponent<EnemyHealth>();
     }
     void Update()
-    {        
+    {   
+        // If the enemy can see the player
         if (playerIsVisible)
         {
+            // If the player is in range
             if (Vector2.Distance(transform.position, target.transform.position) < detectDistance)
             {
-                exclamation.SetActive(true);
+                exclamation.SetActive(true);    // Show the exclamation point on top of the enemy's head
             }
             if (canChase)
             {
                 ChasePlayer();
             }            
         }
+        // If the enemy can't see the player then he's on patrol
         else
         {
             exclamation.SetActive(false);
             enemySpeed = 2;
             patrol.Patrol();
         }
+        // The eyes of the enemy follow the player if he's in sight
         EyesFollowPlayer(playerIsVisible);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If the player enters the collider directly in front of him, the enemy do his melee attack
         if(collision.gameObject.tag == "Player" && canAttack)
         {
             canAttack = false;
@@ -122,9 +125,9 @@ public class EnemyMelee : MonoBehaviour
     // Make the enemy chase after the player
     private void ChasePlayer()
     {
+        // Direction the enemy must chase
         Vector3 direction = new Vector3(target.transform.position.x, 0, 0) - new Vector3(transform.position.x, transform.position.y, transform.position.z);
         enemySpeed = 5;
-        //this.transform.Translate(direction.normalized * Time.deltaTime * enemySpeed);
         this.transform.position = Vector2.MoveTowards(transform.position, target.position, enemySpeed * Time.deltaTime);
 
     }
@@ -135,7 +138,7 @@ public class EnemyMelee : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, detectDistance, ~layerMask);
         if (ray.collider != null)
         {
-            
+            // If the ray hit the player then he's visible to the enemy
             playerIsVisible = ray.collider.CompareTag("Player");
             if (playerIsVisible)
             {    
@@ -151,6 +154,7 @@ public class EnemyMelee : MonoBehaviour
             playerIsVisible = false;
         }
     }
+
     // Make the enemy eyes follow the player
     private void EyesFollowPlayer(bool isVisible)
     {
