@@ -14,26 +14,20 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private Button button;
     private int indexSprites;
 
+    private static bool tutorialShown = false;
     private void Start()
     {
-        //if (PlayerPrefs.GetInt("TutorialShown", 0) == 0)  // Did the player already see the tutorial?
-        //{
-        //    indexSprites = 0;
-        //    ShowNextPicture();
-        //    button.onClick.AddListener(ShowNextPicture); // Create onClick event
-        //}
-        //else
-        //{
-        //    panel.SetActive(false);
-        //}
-       
-        
+        if (!tutorialShown)  // Did the player already see the tutorial?
+        {
+            Time.timeScale = 0f; // Pause the game while the player read the instructions
             indexSprites = 0;
             ShowNextPicture();
             button.onClick.AddListener(ShowNextPicture); // Create onClick event
-        
-
-
+        }
+        else
+        {
+            panel.SetActive(false);
+        }
     }
 
     // When the player click on the tutorial button it shows him the differents picture with the instructions
@@ -58,7 +52,8 @@ public class Tutorial : MonoBehaviour
     // Close the tutorial panel
     public void ClosePanel()
     {
-        PlayerPrefs.SetInt("TutorialShown",1); // We dont want to see the tutorial each time we start the game
+        Time.timeScale = 1f; // Make the game start
+        tutorialShown = true; // We dont want to see the tutorial each time we start the game
         panel.SetActive(false);
     }
 }

@@ -15,7 +15,15 @@ public class GameManager : MonoBehaviour
     {
         PlayerHealth.OnPlayerDied += PlayerDie;
         PlayerCollision.OnGameEnd += FinishLevel;
-    }    
+    }
+
+    private void Update()
+    {
+        if ((Input.GetKeyDown(KeyCode.Escape)))
+        {
+            Application.Quit();
+        }
+    }
 
     // Display the panel that propose to the player to play again
     public void PlayerDie()
