@@ -30,6 +30,8 @@ public class EnemyRange : MonoBehaviour
     Color initEyeColor;
 
     [SerializeField] private LayerMask layerMask;
+
+    EnemyHealth health;
     private void Awake()
     {
         initEyeColor = eye.gameObject.GetComponent<SpriteRenderer>().color;
@@ -40,6 +42,7 @@ public class EnemyRange : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
+        health = GetComponent<EnemyHealth>();
 
         lastShootTime = 0f;
         attackCooldown = 1f;
@@ -134,7 +137,13 @@ public class EnemyRange : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "FireBallPlayer")
+        {
+            health.TakeDamage(1);
+        }
+    }
 
-    
 
 }

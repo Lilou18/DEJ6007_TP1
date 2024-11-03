@@ -27,6 +27,7 @@ public class EnemyMelee : MonoBehaviour
     EyeControl[] eyeControl;
 
     EnemyMeleeAttack enemyAttack;
+    EnemyHealth health;
 
     [SerializeField] private LayerMask layerMask; // The layer we dont want the ray to collide with
 
@@ -41,6 +42,7 @@ public class EnemyMelee : MonoBehaviour
         patrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
         enemyAttack = GetComponentInChildren<EnemyMeleeAttack>();
+        health = GetComponent<EnemyHealth>();
     }
     void Update()
     {        
@@ -86,13 +88,12 @@ public class EnemyMelee : MonoBehaviour
         }
     }
 
+    // Check if a fireball shooted by the player touched the enemy
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "FireBallPlayer")
+        if (collision.gameObject.tag == "FireBallPlayer") // If the fireball toutch any part of the enemy body then he dies
         {
-
-            SoundManager.Instance.PlaySound("Hurt");
-            Destroy(this.gameObject);
+            health.TakeDamage(1);
         }
     }
 
