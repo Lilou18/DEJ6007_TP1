@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ScoreUI : MonoBehaviour
 {
+    // This class is used to display the score on the score panel
+
     private TMP_Text scoreText;
     [SerializeField] private GameObject scorePanel;
 

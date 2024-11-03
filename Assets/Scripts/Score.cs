@@ -5,6 +5,8 @@ using System;
 
 public class Score : MonoBehaviour
 {
+    // This class calculates the scores of the player at the end of the level
+
     private int totalScore;
 
     private FriendManager friendManager;
@@ -13,7 +15,7 @@ public class Score : MonoBehaviour
 
     [SerializeField] private GameObject scorePanel;
 
-    public static event Action<int> OnSetScore;
+    public static event Action<int> OnSetScore; // Invoke event to display the score
 
     private void Start()
     {
@@ -28,6 +30,8 @@ public class Score : MonoBehaviour
         StartCoroutine("WaitForScorePanel");       
     }
 
+    // We wait until the Game Manager has activated the score panel then we calculate the score and call
+    // for the event to display it.
     private IEnumerator WaitForScorePanel()
     {
         yield return new WaitUntil(() => scorePanel.activeInHierarchy);
@@ -35,7 +39,7 @@ public class Score : MonoBehaviour
         
         if (OnSetScore != null)
         {
-            OnSetScore.Invoke(totalScore);
+            OnSetScore.Invoke(totalScore); // Event to display the score
         }
     }
 
