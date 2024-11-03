@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    // This class manage the behaviour of a platform that move between multiple patrol points.
 
-    [SerializeField] Transform[] platformDestinations;
+    [SerializeField] Transform[] platformDestinations; // Destinations the platofrm must reach
     private int index;
-    private Transform target;
+    private Transform target; // Next destination the enemy must go to
     [SerializeField] float platformSpeed;
 
     GameObject player;
-    Transform initParent;
+    Transform initParent; // The parent of the player
 
     private void Start()
     {
@@ -21,17 +22,20 @@ public class MovingPlatform : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // If the platform reaches it's destination, we give it a new destination
         if (Vector2.Distance(transform.position, target.position) <= 0.1f)
         {
             target = platformDestinations[index];
             index = NewPlatformDestinationIndex();
         }
         else
-        {
+        { 
+            // The platform moves towards it's destination
             this.transform.position = Vector2.MoveTowards(transform.position, target.position, platformSpeed * Time.deltaTime);
         }
     }
 
+    // Set the new destination of the platform
     private int NewPlatformDestinationIndex()
     {
         index++;
@@ -44,6 +48,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // If the player jumps on the platform we must change his parent so he can follow the movement of the platform
         if(collision.gameObject.tag == "Player")
         {
             player = collision.gameObject;
@@ -54,6 +59,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        // When the player leaves the platform we reset his parent
         if (collision.gameObject.tag == "Player" && this.gameObject.activeInHierarchy)
         {
             collision.gameObject.transform.parent = initParent;
