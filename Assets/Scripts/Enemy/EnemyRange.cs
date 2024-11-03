@@ -40,7 +40,6 @@ public class EnemyRange : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyPatrol = GetComponent<EnemyPatrol>();
         eyeControl = GetComponentsInChildren<EyeControl>();
-        //detectRange = 10f;
 
         lastShootTime = 0f;
         attackCooldown = 1f;
@@ -84,6 +83,8 @@ public class EnemyRange : MonoBehaviour
 
             // Move the bullet in the direction of the player
             fireBall.GetComponent<Rigidbody2D>().velocity = new Vector2(dirFireBall.x, dirFireBall.y) * fireBallSpeed;
+
+            SoundManager.Instance.PlaySound("Fireball");
 
             Destroy(fireBall, 2f); // If it doesn't hit anything destroy it after 2 sec
 

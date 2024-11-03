@@ -17,6 +17,7 @@ public class FriendManager : MonoBehaviour
     {
         if(collision.gameObject.tag == "Friend")
         {
+            SoundManager.Instance.PlaySound("Friend");
             Friend newFriend = collision.gameObject.GetComponent<Friend>();
             // On ne veut plus que le joueur entre en collision avec celui-ci
             newFriend.gameObject.GetComponent<CircleCollider2D>().enabled = false; 

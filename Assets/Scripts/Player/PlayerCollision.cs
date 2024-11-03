@@ -42,6 +42,7 @@ public class PlayerCollision : MonoBehaviour
         }
         else if(collision.gameObject.tag == "End") // The player arrived at the portal which is the ending
         {
+            SoundManager.Instance.PlaySound("Ending");
             animator.SetBool("IsTeleporting", true);
             StartCoroutine("WaitTeleportingAnimation");
         }        

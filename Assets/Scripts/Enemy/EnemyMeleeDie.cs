@@ -6,8 +6,10 @@ public class EnemyMeleeDie : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "FireBallPlayer")
         {
+
+            SoundManager.Instance.PlaySound("Hurt");
             Destroy(this.transform.parent.gameObject);
         }
     }

@@ -17,6 +17,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     // Animation event that is called when the Melee enemy attack
     public void Attack()
     {
+        SoundManager.Instance.PlaySound("MeleeMonsterAttack");
         if(PlayerHealth != null)
         {
             PlayerHealth.TakeDamage(enemyDamage);

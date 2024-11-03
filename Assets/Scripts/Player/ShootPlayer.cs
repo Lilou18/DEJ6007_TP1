@@ -48,6 +48,8 @@ public class ShootPlayer : MonoBehaviour
             fireBall.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             fireBall.GetComponent<Rigidbody2D>().velocity = shootDirection * fireBallSpeed;
+
+            SoundManager.Instance.PlaySound("Fireball");
         }
     }
 }

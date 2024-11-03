@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyMelee : MonoBehaviour
 {
-    [SerializeField] private float detectDistance;
+    [SerializeField] private float detectDistance; // Distance where he can detect the player
     [SerializeField] Animator animator;
 
     PlayerHealth playerHealth;
@@ -28,7 +28,7 @@ public class EnemyMelee : MonoBehaviour
 
     EnemyMeleeAttack enemyAttack;
 
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask layerMask; // The layer we dont want the ray to collide with
 
     void Start()
     {
@@ -83,6 +83,16 @@ public class EnemyMelee : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canChase = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "FireBallPlayer")
+        {
+
+            SoundManager.Instance.PlaySound("Hurt");
+            Destroy(this.gameObject);
         }
     }
 

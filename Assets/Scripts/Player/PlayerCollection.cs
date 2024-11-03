@@ -13,6 +13,7 @@ public class PlayerCollection : MonoBehaviour
             if(collision.gameObject.tag == "Soul")
             {
                 AddSouls();
+                SoundManager.Instance.PlaySound("Soul");
             }
             collectible.Collect();
         }

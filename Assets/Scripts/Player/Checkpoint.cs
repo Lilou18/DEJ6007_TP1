@@ -23,6 +23,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Checkpoint")
         {
+            SoundManager.Instance.PlaySound("Checkpoint");
             lastCheckpoint = collision.transform.position; // We update our checkpoint
             collision.gameObject.GetComponent<Collider2D>().enabled = false; // Keep the player from reactivating an old checkpoint
             collision.gameObject.GetComponentInChildren<Light2D>().enabled = true;

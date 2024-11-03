@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyRangeDie : MonoBehaviour
 {
-    private int health;
+    [SerializeField] private int health;
 
     private void Start()
     {
@@ -15,8 +15,10 @@ public class EnemyHealth : MonoBehaviour
     {
         if(collision.gameObject.tag == "FireBallPlayer")
         {
+
             health--;
-            if(health <= 0)
+            SoundManager.Instance.PlaySound("Hurt");
+            if (health <= 0)
             {
                 Destroy(gameObject);
             }
