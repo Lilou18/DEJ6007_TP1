@@ -28,13 +28,16 @@ public class EnemyMelee : MonoBehaviour
     EyeControl[] eyeControl; // Allow the eyes of the enemy to follow the player
 
     EnemyMeleeAttack enemyAttack; // Damage the player
-    EnemyHealth health;    
+    EnemyHealth health;
+
+    public bool isPlayerInRange {  get; private set; } // Is the player directly in front of the enemy
 
     void Start()
     {
         canAttack = true;
         playerIsVisible = false;
         canChase = true;
+        isPlayerInRange = false;
 
         animator = GetComponentInChildren<Animator>();
         patrol = GetComponent<EnemyPatrol>();
@@ -76,9 +79,18 @@ public class EnemyMelee : MonoBehaviour
             canAttack = false;
             canChase = false;
             playerHealth = collision.transform.GetComponent<PlayerHealth>();
+            isPlayerInRange = true; // The player can be attacked by the enemy
             enemyAttack.PlayerHealth = playerHealth; // Set the reference of playerHealth for animation event
             animator.SetBool("Attack", true);
             StartCoroutine(AnimationEnd(0.41f));
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player" && canAttack)
+        {
+            isPlayerInRange = true; // The player did not move or not enough so the enemy can still attack him.
         }
     }
 
@@ -88,6 +100,7 @@ public class EnemyMelee : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canChase = true;
+            isPlayerInRange = false;    // The enemy is no longer in range to attack the player
         }
     }
 
