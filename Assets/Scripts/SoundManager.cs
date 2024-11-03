@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    // Manage the differents sounds in the game
+
     // Inspire by https://www.youtube.com/watch?v=rAX_r0yBwzQ&t=242s
     public static SoundManager Instance { get; private set; }       // Singleton
 
@@ -21,7 +23,6 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);  // Keep music playing when we reload a scene
-            //soundEffectSource = GetComponent<AudioSource>();
             InitializeSoundDictionary();
         }
         else
