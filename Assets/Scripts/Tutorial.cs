@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
+    // This class manage the tutorial shown at the start of the game
 
     [SerializeField] private Sprite[] tutorialSprite;
-    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject panel; // Tutorial panel
     [SerializeField] private GameObject image;
     [SerializeField] private Button button;
     private int indexSprites;
