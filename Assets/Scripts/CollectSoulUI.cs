@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CollectSoulUI : MonoBehaviour
 {
+    // Update the UI when a soul is collected by the player
+
     private TMP_Text soulsText;
     private int numberSouls;
 
@@ -15,6 +17,7 @@ public class CollectSoulUI : MonoBehaviour
         CollectSoul.OnSoulCollected += UpdateSoulsText;
     }
 
+    // Update the numbres of souls collected
     private void UpdateSoulsText()
     {
         numberSouls++;
