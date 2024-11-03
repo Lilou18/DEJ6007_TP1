@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public Transform targetPlayer;
+    // This class manage the camera movement so it follows the player position
+
+    public Transform targetPlayer; // the player we want to follow
     Vector3 offset; // Distance between camera and the player
     public float camMoveSpeed;
     
@@ -12,14 +14,9 @@ public class CameraMovement : MonoBehaviour
     {
         offset = transform.position - targetPlayer.position;
     }
-
-    //private void LateUpdate()
-    //{
-    //    Vector3 newCameraPosition = targetPlayer.position + offset;
-    //    transform.position = Vector3.Lerp(transform.position, newCameraPosition, Time.deltaTime * camMoveSpeed);
-    //}
     private void FixedUpdate()
     {
+        // Update the camera position
         Vector3 newCameraPosition = targetPlayer.position + offset;
         transform.position = Vector3.Lerp(transform.position, newCameraPosition, Time.deltaTime * camMoveSpeed);
     }
