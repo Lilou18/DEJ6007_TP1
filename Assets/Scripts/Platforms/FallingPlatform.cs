@@ -7,16 +7,19 @@ public class FallingPlatform : MonoBehaviour
     // This class manage the behaviour of a platforms that fall when the player jump on it.
 
     [SerializeField] float shakeTime;   // The amount of time the platform is shaking before falling
-    [SerializeField] float destroyWaitTime; // Time to wait beofre the platofrm get destroyed
+    [SerializeField] float resetWaitTime; // Time to wait before the platofrm reappears
     [SerializeField] private Vector3 shakeAmount; // How much we want the platform to shake
 
     bool isFalling;
     Rigidbody2D rb;
 
+    private Vector3 initialPosition;    // Initial position of the platform
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         isFalling = false;
+        initialPosition = transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -35,6 +38,15 @@ public class FallingPlatform : MonoBehaviour
     private void Fall()
     {
         rb.bodyType = RigidbodyType2D.Dynamic; // Change from Kinematic to Dynamic
-        Destroy(this.gameObject, destroyWaitTime);
+        Invoke("ResetPlatform", resetWaitTime);
+    }
+
+    // Reset the platform position after falling in case the player missed the jump
+    private void ResetPlatform()
+    {
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.velocity = Vector2.zero;
+        transform.position = initialPosition;
+        isFalling = false;
     }
 }

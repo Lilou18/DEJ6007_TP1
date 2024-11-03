@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeTime: 0.8
-  destroyWaitTime: 2
+  resetWaitTime: 5
   shakeAmount: {x: 0.1, y: 0.1, z: 0}
 --- !u!61 &3976877556690830772
 BoxCollider2D:
