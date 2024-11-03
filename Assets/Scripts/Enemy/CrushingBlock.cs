@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CrushingBlock : MonoBehaviour
 {
-    [SerializeField] private float waitTimer;
-    //[SerializeField] private float rise;
-    //[SerializeField] private float fall;
-    [SerializeField] private float fallSpeed;
-    [SerializeField] private float upSpeed;
+    // This class manages the movement of the crushing blocks
+
+    [SerializeField] private float waitTimer; // Time we wait before the block rises again
+    [SerializeField] private float fallSpeed; // Speed of the block when it falls
+    [SerializeField] private float upSpeed;   // Speed of the block when it rises
 
     private Vector3 initialPosition;
     [SerializeField] private Transform fallingPosition;
@@ -26,6 +26,7 @@ public class CrushingBlock : MonoBehaviour
     {
         if (canFall)
         {
+            // Check if the delay has pass
             fallingTimer += Time.deltaTime;
             if (fallingTimer >= fallingCooldown)
             {
@@ -40,37 +41,38 @@ public class CrushingBlock : MonoBehaviour
 
     private void Fall()
     {
-        // Descend le bloc vers la position de chute
+        // Make the block fall to the falling position
         transform.position = Vector2.MoveTowards(transform.position, fallingPosition.position, fallSpeed * Time.deltaTime);
 
-        // Vérifie si le bloc a atteint la position de chute
+        // Check if the block has reached the falling position
         if (Vector2.Distance(transform.position, fallingPosition.position) < 0.1f)
         {
-            canFall = false;  // Passe en mode montée
-            fallingTimer = 0f;  // Remet le timer à zéro pour la prochaine séquence
+            canFall = false;
+            fallingTimer = 0f;  
             StartCoroutine(StartRising());
         }
     }
 
+    // Rise the block back to it's initial position
     private void Rise()
     {
-        // Monte le bloc vers la position initiale
         transform.position = Vector2.MoveTowards(transform.position, initialPosition, upSpeed * Time.deltaTime);
 
-        // Vérifie si le bloc a atteint la position initiale
+        // Check if the block has reached the inital position
         if (Vector2.Distance(transform.position, initialPosition) < 0.1f)
         {
-            canFall = true;  // Repasse en mode chute
-            fallingTimer = 0f;  // Reset du timer pour la prochaine descente
+            canFall = true;  
+            fallingTimer = 0f;
         }
     }
 
+    // We wait a few seconds before the block rise again
     private IEnumerator StartRising()
     {
         isWaiting = true;
-        // Attend avant de monter
         yield return new WaitForSeconds(waitTimer);
-        canFall = false;  // Commence la montée après le délai
+        // As long as the block rise it can't fall
+        canFall = false; 
         isWaiting = false;
     }
 }
