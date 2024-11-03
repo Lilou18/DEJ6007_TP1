@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
+    // This class manage many collisions with the player
+
     private PlayerHealth playerHealth;
     Animator animator;
 
-    public static event Action OnGameEnd;
+    public static event Action OnGameEnd; // Invoke the event when the game end
         
 
     private void Start()
@@ -55,7 +57,6 @@ public class PlayerCollision : MonoBehaviour
         else if (collision.gameObject.tag == "FireBall") // If the player enter in collision with a fireball then he takes damage
         {
             playerHealth.TakeDamage(1);
-            //SoundManager.Instance.PlaySound(SoundManager.Instance.Test);
         }
     }
 
