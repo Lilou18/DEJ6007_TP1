@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EyeControl : MonoBehaviour
 {
-    [SerializeField] GameObject eye;
-    [SerializeField] Transform target;   
+    // Manage the movement of the eyes so they follow a target (player)
 
-    public float intensity;
+    [SerializeField] GameObject eye; 
+    [SerializeField] Transform target;  // The player   
+
+    public float intensity; // Radius around which the eye will move
 
 
     private void Update()
