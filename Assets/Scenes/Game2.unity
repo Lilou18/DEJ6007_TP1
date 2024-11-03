@@ -32965,8 +32965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.4444, y: -6.5003}
-  m_SizeDelta: {x: 560.5283, y: 309.43}
+  m_AnchoredPosition: {x: 0.000010967, y: -7.1827}
+  m_SizeDelta: {x: 475, y: 317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264241083
 MonoBehaviour:
@@ -61387,7 +61387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2120820245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -61461,8 +61461,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialSprite:
-  - {fileID: 21300000, guid: 933bda24c7473544b8a0f36e0f7d7111, type: 3}
   - {fileID: 21300000, guid: 50d318953af176f4f9109f8f5c247a94, type: 3}
+  - {fileID: 21300000, guid: faad798e879f0634d9fbca12a08de276, type: 3}
+  - {fileID: 21300000, guid: c439f968a019e954ebb36ae063f3e746, type: 3}
+  - {fileID: 21300000, guid: 3c35c7428cdd20f4eafe5d71b8a1961d, type: 3}
+  - {fileID: 21300000, guid: 488e4b428ca748b4d9bef25985f7809c, type: 3}
+  - {fileID: 21300000, guid: befd3a3a74bdb5e459a8cd8f20321df6, type: 3}
+  - {fileID: 21300000, guid: 65d11ca293f35474e937975c6a13a858, type: 3}
   panel: {fileID: 2120820244}
   image: {fileID: 264241081}
   button: {fileID: 1665184548}

@@ -16,18 +16,24 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("TutorialShown",0) == 0)  // Did the player already see the tutorial?
-        {
+        //if (PlayerPrefs.GetInt("TutorialShown", 0) == 0)  // Did the player already see the tutorial?
+        //{
+        //    indexSprites = 0;
+        //    ShowNextPicture();
+        //    button.onClick.AddListener(ShowNextPicture); // Create onClick event
+        //}
+        //else
+        //{
+        //    panel.SetActive(false);
+        //}
+       
+        
             indexSprites = 0;
             ShowNextPicture();
             button.onClick.AddListener(ShowNextPicture); // Create onClick event
-        }
-        else
-        {
-            panel.SetActive(false);
-        }
         
-        
+
+
     }
 
     // When the player click on the tutorial button it shows him the differents picture with the instructions
