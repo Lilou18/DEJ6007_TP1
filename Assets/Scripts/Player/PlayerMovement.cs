@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // This class manage the movement of the player
+
     public float speed;
     public float jumpForce;
 
     public Rigidbody2D rb;
-    Vector2 movementDir;
 
     CircleCollider2D circleCollider2D;
-    [SerializeField]private LayerMask platformsLayerMask;
-    private bool doubleJump;
+    [SerializeField]private LayerMask platformsLayerMask; // We verify if the player is touching something with this layer
+    private bool doubleJump; // Can the player double jump
 
     public Animator animator;
 
-    public float distanceDelta;
+    public float distanceDelta; // Offset to make sure the player his touching the ground
 
     // Dash variables
     [SerializeField] private TrailRenderer trailRenderer;
@@ -32,16 +33,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject friendMarker; // Gameobject near the player that the friends are following
     bool markerRight = true; // Is the marker on the right side of the player
 
-    private void Awake()
-    {
-        //trailRenderer = GetComponent<TrailRenderer>();
-    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
         canDash = true;
-
     }
      
     void Update()
@@ -55,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsWalkingRight", true);                
                 if (markerRight)
                 {
-                    FlipMarkerFriend();
+                    FlipMarkerFriend(); // If we run to the right then we want the friends to follow on the left side of the player
                 }
             }
             else if(Input.GetAxis("Horizontal") < 0) // We run to the left
@@ -63,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsWalkingLeft", true);
                 if (!markerRight)
                 {                    
-                    FlipMarkerFriend();
+                    FlipMarkerFriend(); // If we run to the left then we want the friends to follow on the right side of the player
                 }
             }
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
@@ -129,16 +125,18 @@ public class PlayerMovement : MonoBehaviour
         friendMarker.transform.localPosition = friendMarkerNewPosition;
     }
 
+    // Inspire for jump, double jump and dash
     // https://www.youtube.com/watch?v=ptvK4Fp5vRY
     //https://www.youtube.com/watch?v=DEGEEZmfTT0
     //https://www.youtube.com/watch?v=9pKXXNgCgq8
+
     // Make sure the player is on the ground before he can jump
     private bool IsGrounded()
     {
         float distance = circleCollider2D.bounds.extents.y + distanceDelta;
         Vector2 origin = (Vector2)transform.position - new Vector2(0, circleCollider2D.bounds.extents.y);
 
-        // We make sure if a single part of our player is on the platform
+        // We make sure if a single part of our player is on the platform (or the ground). If it his then he's considered grounded
         RaycastHit2D hitCenter = Physics2D.Raycast(origin, Vector2.down, distance, platformsLayerMask);
         RaycastHit2D hitLeft = Physics2D.Raycast(origin + new Vector2(-circleCollider2D.bounds.extents.x, 0), Vector2.down, distance, platformsLayerMask);
         RaycastHit2D hitRight = Physics2D.Raycast(origin + new Vector2(circleCollider2D.bounds.extents.x, 0), Vector2.down, distance, platformsLayerMask);
@@ -150,10 +148,11 @@ public class PlayerMovement : MonoBehaviour
     // Cooldown after the player dashed
     private IEnumerator StopDashing()
     {
-        yield return new WaitForSeconds(dashTime);
+        yield return new WaitForSeconds(dashTime); // We wait until the dash is finished
         trailRenderer.emitting = false;
         isDashing = false;
-        yield return new WaitForSeconds(dashCoolDown);
+        yield return new WaitForSeconds(dashCoolDown); // We wait until the cooldown between dashes his finished
+        // Allow the player to dash again
         waitCoolDown = true;
     }
 }
