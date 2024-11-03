@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ShootPlayer : MonoBehaviour
 {
-    [SerializeField] GameObject playerFireBallPrefab;
-    [SerializeField] float fireBallSpeed;
+    [SerializeField] private GameObject playerFireBallPrefab;
+    [SerializeField] private float fireBallSpeed;
 
-    private int maxFireBall; // Maximum number of fireball
+    private int numberFireBall; // Number of fireball the player can shoot
 
     [SerializeField] private float attackCooldown; // Cooldown between each fireball
     private float lastShootTime;
@@ -16,7 +17,7 @@ public class ShootPlayer : MonoBehaviour
     {
         lastShootTime = 0f;
         attackCooldown = 1f;
-        maxFireBall = 5;
+        numberFireBall = 0;
     }
 
     private void Update()
@@ -28,14 +29,33 @@ public class ShootPlayer : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Flower")
+        {
+            numberFireBall = 5;
+            StartCoroutine(WaitFlowerGrow(collision.gameObject));
+        }
+    }
+
+    private IEnumerator WaitFlowerGrow(GameObject flower)
+    {
+        flower.GetComponentInChildren<Light2D>().enabled = false;
+        flower.GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(10f);
+        flower.GetComponent<Collider2D>().enabled = true;
+        flower.GetComponentInChildren<Light2D>().enabled = true;
+
+    }
+
     // Allow the player to shoot fireball in the mouse direction
     private void ShootFireBallPlayer()
     {
         // Cooldown between each attack
-        if (Time.time >= lastShootTime + attackCooldown && maxFireBall > 0)
+        if (Time.time >= lastShootTime + attackCooldown && numberFireBall > 0)
         {
             lastShootTime = Time.time;
-            maxFireBall--;
+            numberFireBall--;
 
             // We will fire in the mouse direction
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

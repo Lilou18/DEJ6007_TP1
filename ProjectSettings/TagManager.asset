@@ -16,6 +16,7 @@ TagManager:
   - Soul
   - CrushingBlock
   - FireBallPlayer
+  - Flower
   layers:
   - Default
   - TransparentFX
