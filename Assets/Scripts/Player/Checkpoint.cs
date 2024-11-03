@@ -23,6 +23,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If the player trigger a collision with a checkpoint then we update the respawn position
         if (collision.gameObject.tag == "Checkpoint")
         {
             SoundManager.Instance.PlaySound("Checkpoint");
@@ -32,12 +33,16 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    // Make the player respawn
     private void PlayerHurt()
     {
         StartCoroutine(Respawn());
     }
+
+    // When the player get's hurt we make him respawn to the last checkpoint or his initial position
     private IEnumerator Respawn()
     {
+        // Keep him from moving
         playerMovement.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
 
@@ -52,6 +57,8 @@ public class Checkpoint : MonoBehaviour
 
         // Make sure the camera following script is activated (it's desactivated when the player falls into a hole)
         Camera.main.gameObject.GetComponent<CameraMovement>().enabled = true;
+
+        // Allow him from moving again
         playerMovement.enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
     }
