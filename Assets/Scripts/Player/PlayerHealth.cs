@@ -20,9 +20,14 @@ public class PlayerHealth : MonoBehaviour
         health = 3;
         isInvincible = false;
     }
+
     public void TakeDamage(int damage)
     {
-        if (!isInvincible)
+        TakeDamage(damage, false);
+    }
+    public void TakeDamage(int damage, bool skipInvicible)
+    {
+        if (!isInvincible || skipInvicible)
         {
             health -= damage;
             SetHearts(); // Update the number of life of the player in the UI
@@ -37,8 +42,13 @@ public class PlayerHealth : MonoBehaviour
                 // The player is hurt
                 OnPlayerHurt.Invoke();
             }
+
             // When the player gets hurt he becomes invincible for 1 second
-            StartCoroutine(Invincible());
+            // Only start invincibility for non-fall damage
+            if (!skipInvicible)
+            {
+                StartCoroutine(Invincible());
+            }
         }
         
     }

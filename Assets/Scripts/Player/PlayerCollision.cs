@@ -24,7 +24,7 @@ public class PlayerCollision : MonoBehaviour
         // If the player falls then we make him repsawn and loose a life
         if(collision.gameObject.tag == "Fall")
         {
-            playerHealth.TakeDamage(1);
+            playerHealth.TakeDamage(1, true);
 
             // Disable camera follow when falling
             Camera.main.gameObject.GetComponent<CameraMovement>().enabled = false;
